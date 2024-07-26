@@ -1,0 +1,231 @@
+@font-face {
+  font-family: "Pretendard-Black";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff")
+    format("woff");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard-Bold";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff")
+    format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.todo-frame {
+  display: flex;
+  height: 700px;
+  width: 100%;
+  justify-content: center;
+  padding-top: 70px;
+}
+
+.todo-frame2 {
+  display: flex;
+  height: 640px;
+}
+
+.calendar {
+  width: 593px;
+  height: 640px;
+  background-color: #f1f1f1;
+  border-radius: 30px;
+  padding: 45px 55px 45px 55px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.todo {
+  width: 675px;
+  height: 640px;
+  margin-left: 65px;
+}
+
+/* 캘린더 */
+
+.cal-header {
+  display: flex;
+  padding-bottom: 50px;
+}
+
+.month-year {
+  font-size: 32px;
+  font-family: "Pretendard-Black";
+  color: #ff452b;
+}
+
+.cal-nav {
+  padding-top: 8px;
+  margin-left: auto;
+}
+
+.cal-nav svg {
+  cursor: pointer;
+}
+
+.cal-nav svg:nth-child(1) {
+  margin-right: 50px;
+}
+
+.cal-days {
+  display: flex;
+  margin-bottom: 20px;
+  padding-left: 14px;
+  padding-right: 20px;
+  justify-content: space-between;
+}
+
+.cal-dates {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.date {
+  width: 61px;
+  height: 61px;
+  border-radius: 50px;
+  background-color: #f1f1f1;
+  margin-bottom: 13px;
+  text-align: center;
+  align-content: center;
+  font-size: 20px;
+  color: #595959;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.day {
+  font-size: 20px;
+  color: #595959;
+}
+
+/* 투두 */
+
+.todo-header {
+  display: flex;
+  height: 100px;
+}
+
+.todo-name {
+  font-family: "Pretendard-Bold";
+  font-size: 32px;
+  padding-top: 45px;
+}
+
+.todo-icon {
+  margin-left: auto;
+}
+
+.todo-icon svg {
+  margin-top: 55px;
+  cursor: pointer;
+}
+
+.todo-icon svg:nth-child(1) {
+  margin-right: 30px;
+}
+
+.todo-icon svg:nth-child(2) {
+  margin-right: 20px;
+}
+
+.todo-mid {
+  margin-top: 20px;
+  overflow-y: scroll;
+  overflow: auto;
+  height: 470px;
+}
+
+.add-item {
+  display: flex;
+  height: 88px;
+  width: 633px;
+  align-items: center;
+  border: 1px solid #aeaeae;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+.add-time {
+  margin-left: 43px;
+  color: #ff452b;
+  /* margin-right: 9px; */
+  /* height: 40px; */
+  /* margin-top: 23px; */
+  font-size: 24px;
+  border: none;
+  width: 70px;
+  font-family: "Pretendard-Regular";
+}
+
+.add-time::placeholder {
+  color: #ff452b;
+  font-family: "Pretendard-Regular";
+}
+
+.add-cont {
+  height: 40px;
+  font-size: 24px;
+  border: none;
+  padding-top: 3px;
+  margin-left: 10px;
+}
+
+.add-cont::placeholder {
+  color: black;
+  font-family: "Pretendard-Regular";
+}
+
+.add-btn {
+  color: #aeaeae;
+  height: 40px;
+  margin-left: auto;
+  padding-top: 5px;
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+.list-item {
+  display: flex;
+  font-size: 24px;
+  height: 40px;
+  width: 100%;
+  margin-bottom: 48px;
+}
+
+.todo-check {
+  margin-top: 10px;
+  margin-right: 38px;
+  margin-left: 7px;
+  cursor: pointer;
+}
+
+.todo-time {
+  padding-top: 6px;
+  margin-right: 15px;
+  color: #ff452b;
+  padding-top: 8px;
+}
+
+.todo-cont {
+  padding-top: 7px;
+}
+
+.todo-del {
+  margin-left: auto;
+  margin-right: 20px;
+  margin-top: 8px;
+  cursor: pointer;
+}
