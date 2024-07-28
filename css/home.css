@@ -1,0 +1,117 @@
+.home-container {
+  width: 812px;
+  margin: 0 auto;
+  padding-bottom: 42px;
+  position: relative;
+}
+
+.home-container a {
+  text-decoration: none;
+}
+
+.table-name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.success-count {
+  margin: 0;
+  font-size: 20px;
+  color: #aeaeae;
+}
+
+.store-line {
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.store-img {
+  width: 25px;
+  height: 22.51px;
+  margin-right: 4px;
+}
+
+.wrap {
+  display: flex;
+  flex-flow: wrap;
+  gap: 17px;
+}
+
+.sub,
+.center {
+  display: flex;
+  flex-flow: wrap;
+  gap: 3.5px;
+  width: 259px;
+  height: 259px;
+}
+
+.sub div,
+.center > div {
+  width: 84px;
+  height: 84px;
+  border-radius: 10px;
+  background-color: #dcdcdc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sub > .sub-center,
+.center > div {
+  background-color: #aeaeae;
+}
+
+.sub span {
+  width: 62px;
+  font-size: 13px;
+  color: black;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.sub-center > span,
+.center textarea {
+  font-family: "Pretendard-Regular";
+  font-size: 15px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* center 입력 */
+.center textarea {
+  width: 62px;
+  height: 62px;
+  background-color: transparent;
+  border: none;
+  resize: none;
+  word-break: keep-all;
+  overflow: hidden;
+  text-align: center;
+}
+
+.center textarea:focus {
+  outline: none;
+}
+
+.user-info {
+  font-size: 50px;
+  font-weight: bold;
+  position: absolute;
+  left: -450px;
+  top: 50px;
+}
+
+.user-info > p {
+  margin: 20px 0;
+}
+
+.user-title {
+  background: linear-gradient(to right, #f0ab36, #ff452b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
