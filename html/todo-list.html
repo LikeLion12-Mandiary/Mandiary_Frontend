@@ -30,32 +30,8 @@
           <div class="cal-header">
             <div class="month-year"></div>
             <div class="cal-nav">
-              <svg
-                onclick="prevMonth()"
-                width="13"
-                height="22"
-                viewBox="0 0 13 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M13 19.415L4.96491 11L13 2.585L10.5263 0L0 11L10.5263 22L13 19.415Z"
-                  fill="#AEAEAE"
-                />
-              </svg>
-              <svg
-                onclick="nextMonth()"
-                width="13"
-                height="22"
-                viewBox="0 0 13 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 19.415L8.03509 11L0 2.585L2.47368 0L13 11L2.47368 22L0 19.415Z"
-                  fill="#AEAEAE"
-                />
-              </svg>
+              <img src="/img/prev-btn.png" onclick="prevMonth()" />
+              <img src="/img/next-btn.png" onclick="nextMonth()" />
             </div>
           </div>
           <div class="cal-main">
@@ -76,32 +52,8 @@
           <div class="todo-header">
             <div class="todo-name">오늘의 할 일</div>
             <div class="todo-icon">
-              <svg
-                id="todo-add-icon"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M13 0C5.8357 0 0 5.8357 0 13C0 20.1643 5.8357 26 13 26C20.1643 26 26 20.1643 26 13C26 5.8357 20.1643 0 13 0ZM13 2.6C18.7592 2.6 23.4 7.24084 23.4 13C23.4 18.7592 18.7592 23.4 13 23.4C7.24084 23.4 2.6 18.7592 2.6 13C2.6 7.24084 7.24084 2.6 13 2.6ZM11.7 6.5V11.7H6.5V14.3H11.7V19.5H14.3V14.3H19.5V11.7H14.3V6.5H11.7Z"
-                  fill="#AEAEAE"
-                />
-              </svg>
-              <svg
-                id="todo-edit-icon"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2.84526 23.1507H4.83693L17.1071 10.863L15.1154 8.86849L2.84526 21.1562V23.1507ZM23.1888 8.79726L17.1427 2.8137L19.1343 0.819178C19.6797 0.273059 20.3497 0 21.1445 0C21.9383 0 22.6079 0.273059 23.1533 0.819178L25.1449 2.8137C25.6903 3.35982 25.9748 4.01896 25.9985 4.79112C26.0222 5.56234 25.7614 6.221 25.2161 6.76712L23.1888 8.79726ZM21.126 10.8986L6.04617 26H0V19.9452L15.0799 4.84384L21.126 10.8986ZM16.1113 9.86575L15.1154 8.86849L17.1071 10.863L16.1113 9.86575Z"
-                  fill="#AEAEAE"
-                />
-              </svg>
+              <img id="todo-add-icon" src="/img/plus-btn.png" />
+              <img id="todo-edit-icon" src="/img/big-edit-btn.png" />
             </div>
           </div>
           <hr style="height: 1px; border: 0; background-color: #aeaeae; margin-top: 15px" />
@@ -112,46 +64,10 @@
               <div class="add-btn">추가</div>
             </div>
             <div class="list-item">
-              <svg
-                class="todo-check"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="12" cy="12" r="11.5" transform="rotate(180 12 12)" stroke="#AEAEAE" />
-              </svg>
+              <img class="todo-check" src="/img/circle.png" />
               <div class="todo-time">15:00</div>
               <div class="todo-cont">면접 스터디</div>
-              <svg
-                display="none"
-                class="todo-del"
-                width="29"
-                height="29"
-                viewBox="0 0 29 29"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-              >
-                <rect width="29" height="29" fill="url(#pattern0_110_358)" fill-opacity="0.2" />
-                <defs>
-                  <pattern
-                    id="pattern0_110_358"
-                    patternContentUnits="objectBoundingBox"
-                    width="1"
-                    height="1"
-                  >
-                    <use xlink:href="#image0_110_358" transform="scale(0.0104167)" />
-                  </pattern>
-                  <image
-                    id="image0_110_358"
-                    width="96"
-                    height="96"
-                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAABwUlEQVR4nO2cQW7CMBQF/5nyFuFmdNcue9lWuYG7SSSEgBIK/f/ZM2sW8YytBDtKBAAAAAAAAAAAAAAAANjyFhFz+DOvY7HiIyJaRCwRcQhfFBHf61g+w0x+M4+gE/nNJcK5fNcIuiC/fIRr8t0i6Ib8shHefrng0wiVb8zzeo33jKXUjXmKiK8dEQ6mM79VnkjOEeQu3zmCepHvGEG9yXeKoF7lO0RQ7/IrR9Ao8itG0GjyK0XQqPIrRNDo8jMjCPl5EYT8vAhCfl4EIT8vgpCfF0HIz4sg5OdFEPLzIgj5eeeyy87fdvsPN3MlNOTXjrAw8/MiLMjPWwkL8vMiLMh/LtrxqLln2wJeIJ8IBeQ3VkK+/EaEfPmNCPuZ2YrIQw9srFV45aUL9IddTSIkyt8gwoPoifv5REiUv0GEO9ELT7KIkCh/gwhX+M8z3IlH1Dz5G0RYyXx7YRp9JVR4dWQaNUIF+cNGqCR/uAgV5Q8TobL87iM4yO82gpP87iI4yu8mgrP8LiLwybICHE1n/iMr4T2KcjSXf0+EsvKvRXCTfytCefnnEVzlX4pgI3+Dj3cDAAAAAAAAAAAAAABApPMDku+sSq/QIeEAAAAASUVORK5CYII="
-                  />
-                </defs>
-              </svg>
+              <img class="todo-del" src="/img/del-icon.png" />
             </div>
           </div>
         </div>
