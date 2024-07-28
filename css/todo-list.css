@@ -14,52 +14,48 @@
   font-style: normal;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html,
+/* html,
 body {
   height: 100%;
-}
+} */
 
 .todo-frame {
   display: flex;
-  height: 700px;
+  height: 640px;
   width: 100%;
   justify-content: center;
-  padding-top: 70px;
+  padding-top: 50px;
+  margin-bottom: 50px;
 }
 
 .todo-frame2 {
   display: flex;
-  height: 640px;
 }
 
 .calendar {
-  width: 593px;
-  height: 640px;
+  width: 550px;
+  height: 580px;
   background-color: #f1f1f1;
   border-radius: 30px;
-  padding: 45px 55px 45px 55px;
+  padding: 40px 50px 0px 50px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .todo {
-  width: 675px;
-  height: 640px;
-  margin-left: 65px;
+  width: 620px;
+  height: 590px;
+  margin-left: 55px;
 }
 
 /* 캘린더 */
 
 .cal-header {
   display: flex;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
 }
 
 .month-year {
-  font-size: 32px;
+  font-size: 30px;
   font-family: "Pretendard-Black";
   color: #ff452b;
 }
@@ -69,17 +65,17 @@ body {
   margin-left: auto;
 }
 
-.cal-nav svg {
+.cal-nav img {
   cursor: pointer;
 }
 
-.cal-nav svg:nth-child(1) {
+.cal-nav img:nth-child(1) {
   margin-right: 50px;
 }
 
 .cal-days {
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 17px;
   padding-left: 14px;
   padding-right: 20px;
   justify-content: space-between;
@@ -92,20 +88,20 @@ body {
 }
 
 .date {
-  width: 61px;
-  height: 61px;
+  width: 57px;
+  height: 57px;
   border-radius: 50px;
   background-color: #f1f1f1;
-  margin-bottom: 13px;
+  margin-bottom: 10px;
   text-align: center;
   align-content: center;
-  font-size: 20px;
+  font-size: 17px;
   color: #595959;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .day {
-  font-size: 20px;
+  font-size: 17px;
   color: #595959;
 }
 
@@ -113,12 +109,12 @@ body {
 
 .todo-header {
   display: flex;
-  height: 100px;
+  height: 90px;
 }
 
 .todo-name {
   font-family: "Pretendard-Bold";
-  font-size: 32px;
+  font-size: 30px;
   padding-top: 45px;
 }
 
@@ -126,16 +122,16 @@ body {
   margin-left: auto;
 }
 
-.todo-icon svg {
+.todo-icon img {
   margin-top: 55px;
   cursor: pointer;
 }
 
-.todo-icon svg:nth-child(1) {
+.todo-icon img:nth-child(1) {
   margin-right: 30px;
 }
 
-.todo-icon svg:nth-child(2) {
+.todo-icon img:nth-child(2) {
   margin-right: 20px;
 }
 
@@ -143,49 +139,53 @@ body {
   margin-top: 20px;
   overflow-y: scroll;
   overflow: auto;
-  height: 470px;
+  height: 460px;
+  padding-bottom: 50px;
 }
 
 .add-item {
   display: flex;
   height: 88px;
-  width: 633px;
+  width: 580px;
   align-items: center;
   border: 1px solid #aeaeae;
   border-radius: 10px;
   margin-left: 20px;
-  margin-bottom: 25px;
-  font-size: 24px;
+  margin-bottom: 20px;
+  font-size: 22px;
 }
 
 .add-time {
-  margin-left: 43px;
+  margin-left: 38px;
+  height: 35px;
   color: #ff452b;
-  /* margin-right: 9px; */
-  /* height: 40px; */
-  /* margin-top: 23px; */
-  font-size: 24px;
+  font-size: 22px;
   border: none;
   width: 70px;
   font-family: "Pretendard-Regular";
+  padding-left: 5px;
 }
 
 .add-time::placeholder {
   color: #ff452b;
   font-family: "Pretendard-Regular";
+  font-size: 22px;
 }
 
 .add-cont {
-  height: 40px;
-  font-size: 24px;
+  height: 35px;
+  font-size: 22px;
   border: none;
   padding-top: 3px;
-  margin-left: 10px;
+  margin-left: 15px;
+  font-size: 22px;
+  width: 330px;
 }
 
 .add-cont::placeholder {
   color: black;
   font-family: "Pretendard-Regular";
+  font-size: 22px;
 }
 
 .add-btn {
@@ -195,6 +195,7 @@ body {
   padding-top: 5px;
   margin-right: 40px;
   cursor: pointer;
+  font-size: 22px;
 }
 
 .list-item {
@@ -206,21 +207,26 @@ body {
 }
 
 .todo-check {
-  margin-top: 10px;
-  margin-right: 38px;
+  margin-top: 9px;
+  margin-right: 30px;
   margin-left: 7px;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
 }
 
 .todo-time {
   padding-top: 6px;
-  margin-right: 15px;
+  margin-right: 25px;
   color: #ff452b;
   padding-top: 8px;
+  font-size: 22px;
+  padding-left: 5px;
 }
 
 .todo-cont {
-  padding-top: 7px;
+  padding-top: 7.5px;
+  font-size: 22px;
 }
 
 .todo-del {
@@ -228,4 +234,6 @@ body {
   margin-right: 20px;
   margin-top: 8px;
   cursor: pointer;
+  width: 29px;
+  height: 29px;
 }
