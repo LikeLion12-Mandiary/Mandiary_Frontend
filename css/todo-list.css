@@ -25,10 +25,11 @@ body {
 
 .todo-frame {
   display: flex;
-  height: 700px;
+  height: 710px;
   width: 100%;
   justify-content: center;
-  padding-top: 70px;
+  padding-top: 50px;
+  margin-bottom: 50px;
 }
 
 .todo-frame2 {

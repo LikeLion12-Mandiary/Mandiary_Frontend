@@ -1,5 +1,6 @@
 @import "nav.css";
 @import "todo-list.css";
+@import "mypage.css";
 
 * {
   box-sizing: border-box;
