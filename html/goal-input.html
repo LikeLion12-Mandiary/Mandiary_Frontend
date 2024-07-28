@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mandiary</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+
+  <body>
+    <div class="nav-bar-wrapper">
+      <div class="nav-bar">
+        <img src="../img/logo.png" alt="로고 이미지" class="loog-img" />
+        <ul>
+          <li>
+            <a href="/html/home.html" style="color: #ff452b">MANDAL-ART</a>
+          </li>
+          <li><a href="/html/todo-list.html">TODO-LIST</a></li>
+          <li><a href="#">DIARY</a></li>
+          <li><a href="/html/mypage.html">MY PAGE</a></li>
+        </ul>
+        <a href="#">
+          <img
+            src="../img/logout.png"
+            alt="로그아웃 이미지"
+            class="logout-img"
+          />
+        </a>
+      </div>
+      <div class="content"></div>
+    </div>
+
+    <div class="goal-container">
+      <div class="goals">
+        <div class="goal1"><span>그림연구</span></div>
+        <div class="goal2"><span>브랜딩 공부</span></div>
+        <div class="goal3"><span>매달 마켓오픈</span></div>
+        <div class="goal4"><span>문구제품 출시</span></div>
+        <div class="goal-center"><span>일</span></div>
+        <div class="goal5"><span>리브랜딩</span></div>
+        <div class="goal6"><span>마케팅 공부</span></div>
+        <div class="goal7"><span>새로운 재료 작업하기</span></div>
+        <div class="goal8"><span>미니 그림책 만들기</span></div>
+      </div>
+
+      <div class="input-container">
+        <p class="goal-title">목표를 입력해주세요</p>
+
+        <div class="input-box">
+          <p>내용 (최대 18자)</p>
+          <input type="text" name="goal" />
+        </div>
+
+        <div class="image-line">
+          <div class="image-flex">
+            <span class="image-register">사진 등록</span>
+            <div class="checkbox-wrapper">
+              <label class="switch" for="checkbox-image">
+                <input type="checkbox" id="checkbox-image" />
+                <div class="slider round"></div>
+              </label>
+            </div>
+          </div>
+
+          <img src="/img/camera.png" alt="카메라 이미지" id="camera" />
+        </div>
+
+        <div class="success-flex">
+          <span class="success-check">달성 여부</span>
+          <div class="checkbox-wrapper">
+            <label class="switch" for="checkbox-success">
+              <input type="checkbox" id="checkbox-success" />
+              <div class="slider round"></div>
+            </label>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="ok-btn"><p>확인</p></div>
+      </div>
+    </div>
+
+    <script src="/js/goalInput.js"></script>
+  </body>
+</html>

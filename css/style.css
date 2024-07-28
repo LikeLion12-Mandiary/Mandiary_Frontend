@@ -2,6 +2,7 @@
 @import "todo-list.css";
 @import "mypage.css";
 @import "home.css";
+@import "goal-input.css";
 
 * {
   box-sizing: border-box;
