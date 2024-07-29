@@ -139,24 +139,23 @@ body {
   margin-top: 20px;
   overflow-y: scroll;
   overflow: auto;
-  height: 460px;
-  padding-bottom: 50px;
+  height: 405px;
 }
 
 .add-item {
   display: flex;
-  height: 88px;
-  width: 580px;
+  height: 75px;
+  width: 560px;
   align-items: center;
   border: 1px solid #aeaeae;
   border-radius: 10px;
-  margin-left: 20px;
-  margin-bottom: 20px;
+  margin-left: 25px;
+  margin-bottom: 25px;
   font-size: 22px;
 }
 
 .add-time {
-  margin-left: 38px;
+  margin-left: 33px;
   height: 35px;
   color: #ff452b;
   font-size: 22px;
@@ -201,9 +200,10 @@ body {
 .list-item {
   display: flex;
   font-size: 24px;
-  height: 40px;
+  height: 53px;
   width: 100%;
-  margin-bottom: 48px;
+  margin-top: 10px;
+  margin-bottom: 25px;
 }
 
 .todo-check {
@@ -222,6 +222,7 @@ body {
   padding-top: 8px;
   font-size: 22px;
   padding-left: 5px;
+  width: 60px;
 }
 
 .todo-cont {
