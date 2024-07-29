@@ -6,6 +6,9 @@
 @import "login.css";
 @import "sign-up.css";
 @import "reset-password.css";
+@import "diary.css";
+@import "diary-write.css";
+@import "diary-detail.css";
 @import "store.css";
 
 * {

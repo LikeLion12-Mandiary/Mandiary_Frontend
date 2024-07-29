@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mandiary</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+
+  <body>
+    <div class="nav-bar-wrapper">
+      <div class="nav-bar">
+        <img src="../img/logo.png" alt="로고 이미지" class="loog-img" />
+        <ul>
+          <li>
+            <a href="/html/home.html">MANDAL-ART</a>
+          </li>
+          <li><a href="/html/todo-list.html">TODO-LIST</a></li>
+          <li><a href="/html/diary.html" style="color: #ff452b">DIARY</a></li>
+          <li><a href="/html/mypage.html">MY PAGE</a></li>
+        </ul>
+        <a href="#">
+          <img
+            src="../img/logout.png"
+            alt="로그아웃 이미지"
+            class="logout-img"
+          />
+        </a>
+      </div>
+      <div class="content"></div>
+    </div>
+    <div class="diary-write-container">
+      <p>오늘 하루는 어땠나요?</p>
+      <div class="diary-write-etc">
+        <span>2024/7/20</span>
+        <div class="write-etc-img-wrapper">
+          <img src="../img/img-plus.png" alt="" />
+          <img src="../img/diary-write.png" alt="" />
+        </div>
+      </div>
+      <div class="diary-write-content-container">
+        <img
+          src="../img/diary-detail-background.png"
+          alt=""
+          class="diary-write-background"
+        />
+        <div class="diary-write-content-wrapper">
+          <div class="diray-write-img-wrapper">
+            <div class="diray-write-img">
+              <img src="../img/img1.png" alt="" class="write-img" />
+              <img
+                src="../img/img-delete.png"
+                alt=""
+                class="write-img-delete"
+              />
+            </div>
+            <div class="diray-write-img">
+              <img src="../img/img2.png" alt="" class="write-img" />
+              <img
+                src="../img/img-delete.png"
+                alt=""
+                class="write-img-delete"
+              />
+            </div>
+          </div>
+          <div class="diary-write-content">
+            <textarea
+              name=""
+              id=""
+              class="diary-textarea"
+              placeholder="내용을 입력해주세요."
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="diary-write-btn-wrapper">
+        <button class="diary-write-com-btn">확인</button>
+        <button class="diary-write-can-btn">취소</button>
+      </div>
+    </div>
+  </body>
+</html>
