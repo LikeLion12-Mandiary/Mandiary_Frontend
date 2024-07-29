@@ -3,9 +3,12 @@
 @import "mypage.css";
 @import "home.css";
 @import "goal-input.css";
-
+@import "login.css";
+@import "sign-up.css";
+@import "reset-password.css";
 * {
   box-sizing: border-box;
+  font-family: "Pretendard-Regular";
 }
 
 @font-face {
