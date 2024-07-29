@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mandiary</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+
+  <body>
+    <div class="nav-bar-wrapper">
+      <div class="nav-bar">
+        <img src="../img/logo.png" alt="로고 이미지" class="loog-img" />
+        <ul>
+          <li>
+            <a href="/html/home.html" style="color: #ff452b">MANDAL-ART</a>
+          </li>
+          <li><a href="/html/todo-list.html">TODO-LIST</a></li>
+          <li><a href="/html/diary.html">DIARY</a></li>
+          <li><a href="/html/mypage.html">MY PAGE</a></li>
+        </ul>
+        <a href="#">
+          <img
+            src="../img/logout.png"
+            alt="로그아웃 이미지"
+            class="logout-img"
+          />
+        </a>
+      </div>
+      <div class="content"></div>
+    </div>
+
+    <div class="select-container">
+      <div class="goals">
+        <div class="goal1">
+          <div class="alarm"></div>
+          <span>그림연구</span>
+        </div>
+        <div class="goal2">
+          <div class="alarm"></div>
+          <span>브랜딩 공부</span>
+        </div>
+        <div class="goal3">
+          <div class="alarm"></div>
+          <span>매달 마켓오픈</span>
+        </div>
+        <div class="goal4">
+          <div class="alarm"></div>
+          <span>문구제품 출시</span>
+        </div>
+        <div class="goal-center"></div>
+        <div class="goal5">
+          <div class="alarm"></div>
+          <span>리브랜딩</span>
+        </div>
+        <div class="goal6">
+          <div class="alarm"></div>
+          <span>마케팅 공부</span>
+        </div>
+        <div class="goal7">
+          <div class="alarm"></div>
+          <span>새로운 재료 작업하기</span>
+        </div>
+        <div class="goal8">
+          <div class="alarm"></div>
+          <span>미니 그림책 만들기</span>
+        </div>
+      </div>
+
+      <div class="input-container feeling-container">
+        <p class="feeling-title">한 줄 소감을 입력해보세요!</p>
+
+        <div class="input-box input-feeling">
+          <p>내용 (최대 18자)</p>
+          <input type="text" name="feeling" />
+        </div>
+
+        <p class="select-badge">배지 선택</p>
+
+        <div class="select-badge-box">
+          <div class="select-badge-line">
+            <img src="/img/prev-btn.png" class="prev-btn" />
+            <div class="badge-img-line">
+              <img
+                src="/img/badge_unlock/6.png"
+                id="badge-6"
+                style="width: 165px; height: 155px"
+              />
+              <img
+                src="/img/badge_unlock/2.png"
+                id="badge-2"
+                style="width: 145px; height: 145px"
+              />
+              <img
+                src="/img/badge_unlock/3.png"
+                id="badge-3"
+                style="width: 158px; height: 155px"
+              />
+            </div>
+            <img src="/img/next-btn.png" class="next-btn" />
+          </div>
+        </div>
+
+        <div class="ok-btn"><p>확인</p></div>
+      </div>
+    </div>
+
+    <script src="/js/select-badge.js"></script>
+  </body>
+</html>

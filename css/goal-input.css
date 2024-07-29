@@ -1,10 +1,12 @@
-.goal-container {
+.goal-container,
+.select-container {
   width: 1323px;
-  height: 560px;
+  height: 630px;
   margin: auto;
   display: flex;
   justify-content: space-between;
-  margin-top: 144px;
+  align-items: center;
+  margin-top: 109px;
 }
 
 .goals {
@@ -23,6 +25,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .goals > .goal-center {
@@ -46,7 +49,6 @@
 .input-container {
   width: 675px;
   height: 545px;
-  padding-top: 10px;
 }
 
 .goal-title {
@@ -78,6 +80,7 @@
   font-size: 24px;
   margin-top: 15px;
   border: none;
+  padding: 0;
 }
 
 .input-box > input:focus {
