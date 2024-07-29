@@ -4,6 +4,7 @@
 @import "home.css";
 @import "goal-input.css";
 @import "login.css";
+@import "sign-up.css";
 * {
   box-sizing: border-box;
   font-family: "Pretendard-Regular";
