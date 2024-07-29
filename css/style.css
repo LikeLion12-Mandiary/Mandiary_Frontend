@@ -10,6 +10,7 @@
 @import "diary-write.css";
 @import "diary-detail.css";
 @import "store.css";
+@import "select-badge.css";
 
 * {
   box-sizing: border-box;
