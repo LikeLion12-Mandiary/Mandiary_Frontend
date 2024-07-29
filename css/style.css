@@ -3,6 +3,7 @@
 @import "mypage.css";
 @import "home.css";
 @import "goal-input.css";
+@import "store.css";
 
 * {
   box-sizing: border-box;
