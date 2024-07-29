@@ -3,9 +3,10 @@
 @import "mypage.css";
 @import "home.css";
 @import "goal-input.css";
-
+@import "login.css";
 * {
   box-sizing: border-box;
+  font-family: "Pretendard-Regular";
 }
 
 @font-face {
