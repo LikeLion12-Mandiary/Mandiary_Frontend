@@ -12,10 +12,21 @@
   margin: 0;
 }
 
+.select-badge-title-line {
+  display: flex;
+  align-items: center;
+}
+
 .select-badge {
   font-size: 24px;
   color: black;
   margin: 24px 0;
+}
+
+.select-badge-info {
+  font-size: 18px;
+  color: #aeaeae;
+  margin: 0 0 0 15px;
 }
 
 .select-badge-box {
