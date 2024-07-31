@@ -23,6 +23,22 @@
   align-items: center;
 }
 
+.slide-container {
+  width: 865px;
+  height: 484px;
+  display: flex;
+  gap: 25px;
+  overflow: hidden;
+}
+
+.slide,
+.slide2 {
+  width: 100%;
+  display: flex;
+  gap: 25px;
+  transition: transform 0.7s;
+}
+
 .badge-line {
   padding-bottom: 54px;
 }
@@ -52,12 +68,6 @@
   width: 255.91px;
   height: 255.9px;
   margin-bottom: 23px;
-}
-
-.badge-box > img {
-  width: 276px;
-  height: 296px;
-  margin-bottom: 11px;
 }
 
 .store-name {
@@ -119,4 +129,13 @@
   font-size: 24px;
   color: #aeaeae;
   margin: 0;
+}
+
+.color-line > button,
+.badge-line > button {
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+  width: 13px;
+  height: 22px;
 }
