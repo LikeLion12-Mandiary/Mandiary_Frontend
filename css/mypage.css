@@ -99,11 +99,30 @@ body {
   text-align: center;
 }
 
+.mdat-item-top .mdat-big-goal:nth-child(5) {
+  background-color: black;
+}
+
 .mdat-big-goal {
   background-color: #aeaeae;
   height: 79px;
   width: 79px;
   border-radius: 10px;
+}
+
+.mdat-big-goal.completed {
+  background-color: transparent;
+}
+
+.mdat-big-goal p {
+  margin-top: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+  color: white;
 }
 
 .goal-cap {
@@ -150,7 +169,32 @@ body {
   border-radius: 5px;
 }
 
+.create-btn {
+  width: 160px;
+  height: 45px;
+  margin-right: 7px;
+  cursor: pointer;
+  font-family: "Pretendard-Medium";
+  font-size: 18px;
+  color: white;
+  border: none;
+  background-color: #ff452b;
+  border-radius: 5px;
+}
+
 .del-btn {
+  width: 160px;
+  height: 45px;
+  cursor: pointer;
+  font-size: 18px;
+  font-family: "Pretendard-Medium";
+  color: white;
+  border: none;
+  background-color: #dedede;
+  border-radius: 5px;
+}
+
+.cancel-btn {
   width: 160px;
   height: 45px;
   cursor: pointer;
@@ -168,6 +212,14 @@ body {
   background-color: #aeaeae;
   margin-top: 52px;
   width: 840px;
+}
+
+/* 빈 만다라트 */
+.mdat-title-input {
+  height: 40px;
+  margin-top: 23px;
+  margin-right: 10px;
+  width: 100px;
 }
 
 /* 나의 배지 */
