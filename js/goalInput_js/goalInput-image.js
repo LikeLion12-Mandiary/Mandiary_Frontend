@@ -14,6 +14,4 @@ $(document).ready(function () {
   });
 });
 
-// 목표 입력 실시간 감지
-
 // 사진 등록
