@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const itemsPerPage = 2; // 한 페이지에 표시할 만다라트 개수
   let selectedItem = null; // 선택한 만다라트 (홈화면에 표시)
   let mandalartData = []; // 만다라트 저장 배열
+  let showFinishMdats = false;
 
   // 테스트용 무작위 목표 데이터를 생성하는 함수
   function createTestMandalartData() {
@@ -88,6 +89,53 @@ document.addEventListener("DOMContentLoaded", function () {
           { name: "명상", completed: true, badge: "/img/badge_unlock/9.png" },
         ],
       },
+      {
+        name: "건강 관리4",
+        goals: [
+          { name: "운동", completed: true, badge: "/img/badge_unlock/1.png" },
+          { name: "식이요법", completed: true, badge: "/img/badge_unlock/2.png" },
+          { name: "수면", completed: true, badge: "/img/badge_unlock/3.png" },
+          { name: "스트레스 관리", completed: true, badge: "/img/badge_unlock/4.png" },
+          { name: "건강 관리4", completed: "", badge: "" },
+          { name: "비타민 섭취", completed: true, badge: "/img/badge_unlock/6.png" },
+          { name: "스트레칭", completed: true, badge: "/img/badge_unlock/7.png" },
+          { name: "휴식", completed: true, badge: "/img/badge_unlock/8.png" },
+          { name: "명상", completed: true, badge: "/img/badge_unlock/9.png" },
+        ],
+      },
+    ];
+  }
+
+  function finishedMandalartData() {
+    return [
+      {
+        name: "건강 관리4",
+        goals: [
+          { name: "운동", completed: true, badge: "/img/badge_unlock/1.png" },
+          { name: "식이요법", completed: true, badge: "/img/badge_unlock/2.png" },
+          { name: "수면", completed: true, badge: "/img/badge_unlock/3.png" },
+          { name: "스트레스 관리", completed: true, badge: "/img/badge_unlock/4.png" },
+          { name: "건강 관리4", completed: "", badge: "" },
+          { name: "비타민 섭취", completed: true, badge: "/img/badge_unlock/6.png" },
+          { name: "스트레칭", completed: true, badge: "/img/badge_unlock/7.png" },
+          { name: "휴식", completed: true, badge: "/img/badge_unlock/8.png" },
+          { name: "명상", completed: true, badge: "/img/badge_unlock/9.png" },
+        ],
+      },
+      {
+        name: "건강 관리5",
+        goals: [
+          { name: "운동", completed: true, badge: "/img/badge_unlock/1.png" },
+          { name: "식이요법", completed: true, badge: "/img/badge_unlock/2.png" },
+          { name: "수면", completed: true, badge: "/img/badge_unlock/3.png" },
+          { name: "스트레스 관리", completed: true, badge: "/img/badge_unlock/4.png" },
+          { name: "건강 관리5", completed: "", badge: "" },
+          { name: "비타민 섭취", completed: true, badge: "/img/badge_unlock/6.png" },
+          { name: "스트레칭", completed: true, badge: "/img/badge_unlock/7.png" },
+          { name: "휴식", completed: true, badge: "/img/badge_unlock/8.png" },
+          { name: "명상", completed: true, badge: "/img/badge_unlock/9.png" },
+        ],
+      },
     ];
   }
 
@@ -109,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
           .join("")}
       </div>
       <div class="mdat-item-mid">
-        <p>${mandalart.name}</p>
+        <p class = 'mdat-name-input'>${mandalart.name}</p>
         <img class='name-edit-btn' src="/img/edit-btn.png" alt="edit-button"/>
       </div>
       <div class="mdat-item-bottom">
@@ -118,8 +166,32 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
     `;
 
+    item.style.backgroundColor = showFinishMdats ? "#000000" : "";
+    const selectBtn = item.querySelector(".select-btn");
+    const delBtn = item.querySelector(".del-btn");
+    const mdatName = item.querySelector(".mdat-item-mid p");
+    const mdatBigGoal5 = item.querySelector(".mdat-big-goal:nth-child(5)");
+    const goalCap = item.querySelectorAll(".goal-cap");
+
+    if (showFinishMdats) {
+      delBtn.style.backgroundColor = "#000000";
+      delBtn.style.border = "1px solid #FFFFFF";
+      selectBtn.style.border = "1px solid #FFFFFF";
+      mdatName.style.color = "#FFFFFF";
+      mdatBigGoal5.style.backgroundColor = "#FF452B";
+      goalCap.forEach((cap) => {
+        cap.style.opacity = "30%";
+      });
+    }
+
     mdatContent.appendChild(item);
     changePage(currentPage);
+  }
+
+  function renderAllMdats(data) {
+    mdatContent.innerHTML = "";
+    data.forEach((mandalart) => renderMandalart(mandalart));
+    changePage(currentPage); // 페이지 변경 처리
   }
 
   // 빈 만다라트 생성
@@ -149,11 +221,15 @@ document.addEventListener("DOMContentLoaded", function () {
     changePage(currentPage);
   }
 
+  function calTotalPageNum(data) {
+    return Math.ceil(data.length / itemsPerPage);
+  }
+
   // 페이지 변경
   function changePage(page) {
     const allItems = mdatContent.querySelectorAll(".mdat-item");
-    const totalItemNum = mandalartData.length;
-    const totalPages = Math.ceil(totalItemNum / itemsPerPage);
+    const totalItemNum = showFinishMdats ? finishedMandalartData().length : mandalartData.length;
+    const totalPages = calTotalPageNum(showFinishMdats ? finishedMandalartData() : mandalartData);
 
     // 페이지 조정
     if (page < 0) {
@@ -189,11 +265,31 @@ document.addEventListener("DOMContentLoaded", function () {
   mdatContent.addEventListener("click", function (event) {
     if (event.target.classList.contains("del-btn")) {
       const item = event.target.closest(".mdat-item");
+      const action = event.target.textContent.trim().toLowerCase();
 
-      if (confirm("만다라트를 삭제하시겠습니까?")) {
-        item.remove();
-        changePage(currentPage);
-        plusIcon.src = "/img/plus-btn.png";
+      if (action === "취소") {
+        if (confirm("만다라트 생성을 취소하시겠습니까?")) {
+          item.remove();
+          const totalPages = calTotalPageNum(mandalartData);
+          if (currentPage >= totalPages) {
+            currentPage = totalPages - 1;
+          }
+          changePage(currentPage);
+          plusIcon.src = "/img/plus-btn.png";
+        }
+      } else if (action === "삭제") {
+        if (confirm("만다라트를 삭제하시겠습니까?")) {
+          const itemName = item.querySelector(".mdat-item-mid p").textContent;
+          mandalartData = mandalartData.filter((mandalart) => mandalart.name !== itemName);
+          item.remove();
+
+          const totalPages = calTotalPageNum(mandalartData);
+          if (currentPage >= totalPages) {
+            currentPage = totalPages - 1;
+          }
+          changePage(currentPage);
+          plusIcon.src = "/img/plus-btn.png";
+        }
       }
     }
   });
@@ -213,6 +309,84 @@ document.addEventListener("DOMContentLoaded", function () {
       event.target.style.backgroundColor = "#FF452B";
     }
   });
+
+  // 만다라트 이름 수정
+  // mdatContent.addEventListener("click", function (event) {
+  //   console.log(event.target);
+  //   const item = event.target.closest(".mdat-item");
+  //   const mdatTitleElement = item.querySelector(".mdat-name-input");
+  //   console.log(mdatTitleElement);
+  //   const currentTitle = mdatTitleElement.textContent.trim();
+  //   console.log(currentTitle);
+
+  //   const inputField = document.createElement("input");
+  //   inputField.type = "text";
+  //   inputField.value = currentTitle;
+  //   inputField.classList.add("mdat-title-input");
+
+  //   mdatTitleElement.replaceWith(inputField);
+
+  //   inputField.focus();
+
+  //   inputField.addEventListener("blur", function () {
+  //     const newTitle = inputField.value.trim();
+
+  //     if (newTitle) {
+  //       // Update the title in the data array
+  //       const itemName = currentTitle;
+  //       const mandarat = mandalartData.find((mandalart) => mandalart.name === itemName);
+  //       if (mandarat) {
+  //         mandarat.name = newTitle;
+  //       }
+
+  //       // Replace input field with updated title
+  //       const newTitleElement = document.createElement("p");
+  //       newTitleElement.classList.add("mdat-title");
+  //       newTitleElement.textContent = newTitle;
+  //       inputField.replaceWith(newTitleElement);
+  //     } else {
+  //       // Revert to original title if new title is empty
+  //       inputField.replaceWith(titleElement);
+  //     }
+  //   });
+  //   // if (event.target.classList.contains("name-edit-icon")) {
+  //   //   const item = event.target.closest(".mdat-item");
+  //   //   const mdatTitleElement = item.querySelector(".mdat-title");
+  //   //   const currentTitle = mdatTitleElement.textContent.trim();
+  //   //   console.log(currentTitle);
+
+  //   //   const inputField = document.createElement("input");
+  //   //   inputField.type = "text";
+  //   //   inputField.value = currentTitle;
+  //   //   inputField.classList.add("mdat-title-input");
+
+  //   //   mdatTitleElement.replaceWith(inputField);
+
+  //   //   inputField.focus();
+
+  //   //   inputField.addEventListener("blur", function () {
+  //   //     const newTitle = inputField.value.trim();
+
+  //   //     if (newTitle) {
+  //   //       // Update the title in the data array
+  //   //       const itemName = currentTitle;
+  //   //       const mandarat = mandalartData.find((mandalart) => mandalart.name === itemName);
+  //   //       if (mandarat) {
+  //   //         mandarat.name = newTitle;
+  //   //       }
+
+  //   //       // Replace input field with updated title
+  //   //       const newTitleElement = document.createElement("p");
+  //   //       newTitleElement.classList.add("mdat-title");
+  //   //       newTitleElement.textContent = newTitle;
+  //   //       inputField.replaceWith(newTitleElement);
+  //   //     } else {
+  //   //       // Revert to original title if new title is empty
+  //   //       inputField.replaceWith(titleElement);
+  //   //     }
+  //   //   });
+  //   // }
+  // });
 
   // 플러스아이콘 클릭
   plusIcon.addEventListener("click", function () {
@@ -238,6 +412,8 @@ document.addEventListener("DOMContentLoaded", function () {
         plusIcon.src = "/img/plus-btn.png";
 
         changePage(0);
+      } else {
+        alert("만다라트 이름을 입력하세요");
       }
     }
     // 새 만다라트의 취소버튼 -> 폼 제거
@@ -251,9 +427,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 체크버튼 - 달성 완료한 만다라트
   checkIcon.addEventListener("click", function () {
-    if ((checkIcon.src = "/img/check-btn.png")) {
+    changePage(0);
+    showFinishMdats = !showFinishMdats;
+    if (showFinishMdats) {
+      const finishedData = finishedMandalartData();
+      renderAllMdats(finishedData);
       checkIcon.src = "/img/full-check-btn.png";
     } else {
+      renderAllMdats(mandalartData);
+      checkIcon.src = "/img/check-btn.png";
     }
   });
 
@@ -261,5 +443,142 @@ document.addEventListener("DOMContentLoaded", function () {
   plusIcon.addEventListener("click", function () {
     changePage(0);
     plusIcon.src = "/img/full-plus-btn.png";
+  });
+
+  //---------------------------------------------------------------------------------
+  // 나의 칭호
+  const titleList = [
+    { name: "알잘딱깔센", img: "/img/title/알잘딱깔센.png" },
+    { name: "갓생러", img: "/img/title/갓생러.png" },
+    { name: "중꺾마", img: "/img/title/중꺾마.png" },
+  ];
+
+  function renderTitles(titleList) {
+    const titleMain = document.querySelector(".my-title-main");
+    titleMain.innerHTML = "";
+
+    for (let i = 0; i < titleList.length; i += 3) {
+      const titleItem = document.createElement("div");
+      titleItem.classList.add("title-item");
+
+      for (let j = i; j < i + 3 && j < titleList.length; j++) {
+        const titleImg = document.createElement("img");
+        titleImg.src = titleList[j].img;
+        titleImg.alt = titleList[j].name;
+        titleItem.appendChild(titleImg);
+      }
+      titleMain.appendChild(titleItem);
+    }
+  }
+
+  renderTitles(titleList);
+
+  //----------------------------------------------------------------------------------
+  //나의 배지
+
+  let unlockableNum = 3; // 해제 가능한 배지 개수
+  const badgeItems = document.querySelectorAll(".badge-item");
+
+  if (unlockableNum > 0) {
+    document.querySelector(".new-icon").style.display = "block";
+    document.querySelector(".new-ment").style.display = "block";
+    document.querySelector(".unlockable-num").style.display = "block";
+    document.querySelector(".unlockable-num").textContent =
+      "(획득 가능 개수 : " + unlockableNum + ")";
+  }
+
+  const originalTitle = [
+    "알잘딱깔센",
+    "갓생러",
+    "중꺾마",
+    "가보자고",
+    "오히려 좋은",
+    "럭키비키",
+    "거친 세상에 뛰어든",
+    "성공시대 시작된",
+    "일취월장",
+  ];
+
+  // 배지 해제
+
+  const mybadge = [
+    "/img/badge_unlock/1.png",
+    "/img/badge_unlock/2.png",
+    "/img/badge_unlock/3.png",
+    "/img/badge_lock/basic4.png",
+    "/img/badge_lock/basic5.png",
+    "/img/badge_lock/basic6.png",
+    "/img/badge_lock/basic7.png",
+    "/img/badge_lock/basic8.png",
+    "/img/badge_lock/basic9.png",
+  ];
+
+  const unlockedImages = [
+    "/img/badge_unlock/1.png",
+    "/img/badge_unlock/2.png",
+    "/img/badge_unlock/3.png",
+    "/img/badge_unlock/4.png",
+    "/img/badge_unlock/5.png",
+    "/img/badge_unlock/6.png",
+    "/img/badge_unlock/7.png",
+    "/img/badge_unlock/8.png",
+    "/img/badge_unlock/9.png",
+  ];
+
+  const lockedImages = [
+    "/img/badge_lock/basic1.png",
+    "/img/badge_lock/basic2.png",
+    "/img/badge_lock/basic3.png",
+    "/img/badge_lock/basic4.png",
+    "/img/badge_lock/basic5.png",
+    "/img/badge_lock/basic6.png",
+    "/img/badge_lock/basic7.png",
+    "/img/badge_lock/basic8.png",
+    "/img/badge_lock/basic9.png",
+  ];
+
+  const badgeCaps = document.querySelectorAll(".cap-img");
+  badgeCaps.forEach((badge) => {
+    badge.addEventListener("click", function () {
+      const badgeSrc = badge.src;
+      console.log(badgeSrc);
+
+      const isLocked = badgeSrc.includes("badge_lock");
+      console.log("Is badge locked?", isLocked);
+
+      // 잠겨있는 배지일 경우
+      if (isLocked) {
+        const lockedIndex = lockedImages.findIndex((src) => badgeSrc.includes(src));
+
+        if (lockedIndex !== -1 && unlockableNum > 0) {
+          unlockableNum--;
+
+          // unlockedImages 배열에서 해제된 이미지를 찾기
+          badge.src = unlockedImages[lockedIndex];
+          document.querySelector(".unlockable-num").textContent =
+            "(획득 가능 개수 : " + unlockableNum + ")";
+
+          if (unlockableNum == 0) {
+            document.querySelector(".new-icon").style.display = "none";
+            document.querySelector(".new-ment").style.display = "none";
+            document.querySelector(".unlockable-num").style.display = "none";
+          }
+
+          // 배지 잠금해제 후 칭호 획득
+          const badgeContainer = badge.closest(".badge-item");
+          if (!badgeContainer) {
+            console.error("not found");
+            return;
+          }
+          const badgeTitleElement = badgeContainer.querySelector(".cap-title");
+          const badgeTitle = badgeTitleElement.textContent;
+          console.log("Badge title:", badgeTitle);
+        }
+      } else if (unlockableNum === 0) {
+        console.log("모든 배지를 해제하였습니다.");
+      } else {
+        alert("이미 보유하고 있는 배지입니다. 잠겨있는 배지를 클릭하세요!");
+      }
+    });
   });
 });
