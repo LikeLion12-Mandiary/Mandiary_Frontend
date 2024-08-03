@@ -53,19 +53,17 @@ const renderCalender = () => {
   // Dates 합치기
   const dates = prevDates.concat(thisDates, nextDates);
 
-  // const todayDate = today.getDate();
-  // const todayMonth = today.getMonth();
-  // const todayYear = today.getFullYear();
+  const today = new Date();
+  const todayDate = today.getDate();
+  const todayMonth = today.getMonth();
+  const todayYear = today.getFullYear();
 
-  // const calendarDates = dates.map((date, i) => {
-  //   const isToday = todayDate === date && viewMonth === todayMonth && viewYear === todayYear;
-  //   return `<div class="date${isToday ? " today" : ""}">${date}</div>`;
-  // });
-
-  dates.forEach((date, i) => {
-    dates[i] = `<div class="date">${date}</div>`;
+  const calendarDates = dates.map((date, i) => {
+    const isToday = todayDate === date && viewMonth === todayMonth && viewYear === todayYear;
+    return `<div class="date${isToday ? " today" : ""}">${date}</div>`;
   });
-  document.querySelector(".cal-dates").innerHTML = dates.join("");
+
+  document.querySelector(".cal-dates").innerHTML = calendarDates.join("");
 };
 
 renderCalender();
