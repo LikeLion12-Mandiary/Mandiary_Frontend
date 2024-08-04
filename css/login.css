@@ -31,6 +31,12 @@
   padding: 2.37rem;
 }
 
+.login-container input:-webkit-autofill {
+  background-color: white !important;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  box-shadow: 0 0 0px 1000px white inset;
+}
+
 .login-container > button {
   width: 42.1875rem;
   height: 5.6875rem;
@@ -40,11 +46,16 @@
   font-size: 1.5rem;
   margin-top: 4rem;
   margin-bottom: 3rem;
+  cursor: pointer;
 }
 
 .login-button-wrapper {
   display: flex;
   gap: 1.5rem;
+}
+
+.login-button-wrapper button {
+  cursor: pointer;
 }
 
 .login-button-wrapper button,

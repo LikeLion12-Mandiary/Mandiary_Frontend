@@ -10,6 +10,10 @@
   cursor: pointer;
 }
 
+#diary-left {
+  visibility: hidden;
+}
+
 .diary-title p {
   margin: 0 4.38rem;
   font-size: 2rem;

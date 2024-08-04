@@ -109,7 +109,12 @@
 }
 
 .success-flex {
-  margin: 38px 0 34px 0;
+  margin: 44px 0 36px 0;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
 }
 
 /* 토글버튼 */
@@ -180,7 +185,6 @@
 }
 
 .ok-btn > p {
-  margin: 0;
   color: #ffffff;
   font-size: 30px;
   font-weight: bold;

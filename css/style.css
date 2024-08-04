@@ -9,6 +9,7 @@
 @import "diary.css";
 @import "diary-write.css";
 @import "diary-detail.css";
+@import "store.css";
 * {
   box-sizing: border-box;
   font-family: "Pretendard-Regular";
