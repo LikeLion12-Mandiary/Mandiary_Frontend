@@ -10,15 +10,21 @@
   <body>
     <div class="login-container">
       <img src="../img/login.png" alt="" />
-      <p>이메일 또는 비밀번호가 일치하지 않습니다.</p>
-      <input type="text" placeholder="이메일" />
-      <input type="text" placeholder="비밀번호" />
-      <button>로그인</button>
+      <p id="login-error">이메일 또는 비밀번호가 일치하지 않습니다.</p>
+      <input type="text" placeholder="이메일" id="input-email" />
+      <input type="password" placeholder="비밀번호" id="input-password" />
+      <button id="login-btn">로그인</button>
       <div class="login-button-wrapper">
-        <button>회원가입</button>
+        <a href="./sign-up.html">
+          <button>회원가입</button>
+        </a>
         <span>|</span>
-        <button>비밀번호 재설정</button>
+        <a href="./reset-password.html">
+          <button>비밀번호 재설정</button>
+        </a>
       </div>
     </div>
+
+    <script src="../js/login.js"></script>
   </body>
 </html>
