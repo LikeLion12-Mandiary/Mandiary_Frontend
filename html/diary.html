@@ -1,131 +1,97 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mandiary</title>
     <link rel="stylesheet" href="../css/style.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="nav-bar-wrapper">
-      <div class="nav-bar">
-        <img src="../img/logo.png" alt="로고 이미지" class="loog-img" />
-        <ul>
-          <li>
-            <a href="/html/home.html">MANDAL-ART</a>
-          </li>
-          <li><a href="/html/todo-list.html">TODO-LIST</a></li>
-          <li><a href="/html/diary.html" style="color: #ff452b">DIARY</a></li>
-          <li><a href="/html/mypage.html">MY PAGE</a></li>
-        </ul>
-        <a href="#">
-          <img
-            src="../img/logout.png"
-            alt="로그아웃 이미지"
-            class="logout-img"
-          />
-        </a>
-      </div>
-      <div class="content"></div>
+        <div class="nav-bar">
+            <img src="../img/logo.png" alt="로고 이미지" class="loog-img" />
+            <ul>
+                <li>
+                    <a href="/html/home.html">MANDAL-ART</a>
+                </li>
+                <li><a href="/html/todo-list.html">TODO-LIST</a></li>
+                <li><a href="/html/diary.html" style="color: #ff452b">DIARY</a></li>
+                <li><a href="/html/mypage.html">MY PAGE</a></li>
+            </ul>
+            <a href="#">
+                <img src="../img/logout.png" alt="로그아웃 이미지" class="logout-img" />
+            </a>
+        </div>
+        <div class="content"></div>
     </div>
     <div class="diary-container">
-      <div class="diary-title-wrapper">
-        <div class="diary-title">
-          <img src="../img/left-btn.png" id="diary-left" alt="" />
-          <p>2024 다이어리</p>
-          <img src="../img/right-btn.png" alt="" />
+        <div class="diary-title-wrapper" id="diary-title-wrapper">
+            <!-- <div class="diary-title">
+                <img src="../img/left-btn.png" id="diary-left" alt="" />
+                <p>2024 다이어리</p>
+                <img src="../img/right-btn.png" alt="" />
+            </div>
+            <p class="diary-count">총 20개의 일기</p> -->
         </div>
-        <p class="diary-count">총 20개의 일기</p>
-      </div>
-      <div class="diary-content-wrapper">
-        <div class="diary-monthly">
-          <p>7월</p>
-          <a href="./diary-write.html">
-            <img src="../img/diary-plus.png" alt="" />
-          </a>
-          <div class="diary-daily-wrapper">
-            <div class="diary-daily">
-              <img
-                src="../img/diary-background.png"
-                alt=""
-                class="diary-background"
-              />
-              <div class="daily-content">
-                <img src="../img/img1.png" alt="" class="daily-img" />
-              </div>
-              <span class="daily-date">2024/7/20</span>
+        <div class="diary-content-wrapper" id="diary-content-wrapper">
+            <!-- <div class="diary-monthly">
+                <p>7월</p>
+                <a href="./diary-write.html">
+                    <img src="../img/diary-plus.png" alt="" />
+                </a>
+                <div class="diary-daily-wrapper">
+                    <div class="diary-daily">
+                        <img src="../img/diary-background.png" alt="" class="diary-background" />
+                        <div class="daily-content">
+                            <img src="../img/img1.png" alt="" class="daily-img" />
+                        </div>
+                        <span class="daily-date">2024/7/20</span>
+                    </div>
+                    <div class="diary-daily">
+                        <img src="../img/diary-background.png" alt="" class="diary-background" />
+                        <div class="daily-content">
+                            <img src="../img/img1.png" alt="" class="daily-img" />
+                            <img src="../img/img1.png" alt="" class="daily-img" />
+                        </div>
+                        <span class="daily-date">2024/7/19</span>
+                    </div>
+                    <div class="diary-daily">
+                        <img src="../img/diary-background.png" alt="" class="diary-background" />
+                        <div class="daily-content">
+                            <p>오늘 교내톤 1등을 했다.</p>
+                        </div>
+                        <span class="daily-date">2024/7/15</span>
+                    </div>
+                    <div class="diary-daily">
+                        <img src="../img/diary-background.png" alt="" class="diary-background" />
+                    </div>
+                </div>
             </div>
-            <div class="diary-daily">
-              <img
-                src="../img/diary-background.png"
-                alt=""
-                class="diary-background"
-              />
-              <div class="daily-content">
-                <img src="../img/img1.png" alt="" class="daily-img" />
-                <img src="../img/img1.png" alt="" class="daily-img" />
-              </div>
-              <span class="daily-date">2024/7/19</span>
-            </div>
-            <div class="diary-daily">
-              <img
-                src="../img/diary-background.png"
-                alt=""
-                class="diary-background"
-              />
-              <div class="daily-content">
-                <p>오늘 교내톤 1등을 했다.</p>
-              </div>
-              <span class="daily-date">2024/7/15</span>
-            </div>
-            <div class="diary-daily">
-              <img
-                src="../img/diary-background.png"
-                alt=""
-                class="diary-background"
-              />
-            </div>
-          </div>
+            <hr />
+            <div class="diary-monthly">
+                <p>6월</p>
+                <div class="diary-daily-wrapper">
+                    <div class="diary-daily">
+                        <img src="../img/diary-background.png" alt="" class="diary-background" />
+                    </div>
+                    <div class="diary-daily">
+                        <img src="../img/diary-background.png" alt="" class="diary-background" />
+                    </div>
+                    <div class="diary-daily">
+                        <img src="../img/diary-background.png" alt="" class="diary-background" />
+                    </div>
+                    <div class="diary-daily">
+                        <img src="../img/diary-background.png" alt="" class="diary-background" />
+                    </div>
+                </div>
+            </div> -->
         </div>
-        <hr />
-        <div class="diary-monthly">
-          <p>6월</p>
-          <div class="diary-daily-wrapper">
-            <div class="diary-daily">
-              <img
-                src="../img/diary-background.png"
-                alt=""
-                class="diary-background"
-              />
-            </div>
-            <div class="diary-daily">
-              <img
-                src="../img/diary-background.png"
-                alt=""
-                class="diary-background"
-              />
-            </div>
-            <div class="diary-daily">
-              <img
-                src="../img/diary-background.png"
-                alt=""
-                class="diary-background"
-              />
-            </div>
-            <div class="diary-daily">
-              <img
-                src="../img/diary-background.png"
-                alt=""
-                class="diary-background"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <script src="../js/diary.js"></script>
     <script src="../js/header.js"></script>
-  </body>
+</body>
+
 </html>
