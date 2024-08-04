@@ -1,4 +1,37 @@
-// 캘린더
+let API_SERVER_DOMAIN = "http://3.38.46.212";
+const accessToken = getCookie("accessToken");
+
+// 쿠키 관련 함수들
+function setCookie(name, value, days) {
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var cookies = document.cookie.split(";");
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i];
+    while (cookie.charAt(0) === " ") {
+      cookie = cookie.substring(1, cookie.length);
+    }
+    if (cookie.indexOf(nameEQ) === 0) {
+      return cookie.substring(nameEQ.length, cookie.length);
+    }
+  }
+  return null;
+}
+
+function deleteCookie(name) {
+  document.cookie = name + "=; Expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;";
+}
+
+// 캘린더 =======================================================================
 
 // 날짜 가져오기
 let date = new Date();
@@ -53,19 +86,17 @@ const renderCalender = () => {
   // Dates 합치기
   const dates = prevDates.concat(thisDates, nextDates);
 
-  // const todayDate = today.getDate();
-  // const todayMonth = today.getMonth();
-  // const todayYear = today.getFullYear();
+  const today = new Date();
+  const todayDate = today.getDate();
+  const todayMonth = today.getMonth();
+  const todayYear = today.getFullYear();
 
-  // const calendarDates = dates.map((date, i) => {
-  //   const isToday = todayDate === date && viewMonth === todayMonth && viewYear === todayYear;
-  //   return `<div class="date${isToday ? " today" : ""}">${date}</div>`;
-  // });
-
-  dates.forEach((date, i) => {
-    dates[i] = `<div class="date">${date}</div>`;
+  const calendarDates = dates.map((date, i) => {
+    const isToday = todayDate === date && viewMonth === todayMonth && viewYear === todayYear;
+    return `<div class="date${isToday ? " today" : ""}">${date}</div>`;
   });
-  document.querySelector(".cal-dates").innerHTML = dates.join("");
+
+  document.querySelector(".cal-dates").innerHTML = calendarDates.join("");
 };
 
 renderCalender();
@@ -82,13 +113,7 @@ const nextMonth = () => {
   renderCalender();
 };
 
-// goToday
-// const goToday = () => {
-//   date = new Date();
-//   renderCalender();
-// };
-
-// 투두
+// 투두 ===========================================================================================
 
 document.addEventListener("DOMContentLoaded", function () {
   const addItem = document.querySelector(".add-item");
@@ -97,62 +122,257 @@ document.addEventListener("DOMContentLoaded", function () {
   const addTimeInput = document.querySelector(".add-time");
   const addContInput = document.querySelector(".add-cont");
   const delIcon = document.querySelector(".todo-del");
+  const addBtn = document.querySelector(".add-btn");
+  const todoMid = document.querySelector(".todo-mid");
 
-  const addIconSVG1 = `
-		<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path d="M13 0C5.8357 0 0 5.8357 0 13C0 20.1643 5.8357 26 13 26C20.1643 26 26 20.1643 26 13C26 5.8357 20.1643 0 13 0ZM13 2.6C18.7592 2.6 23.4 7.24084 23.4 13C23.4 18.7592 18.7592 23.4 13 23.4C7.24084 23.4 2.6 18.7592 2.6 13C2.6 7.24084 7.24084 2.6 13 2.6ZM11.7 6.5V11.7H6.5V14.3H11.7V19.5H14.3V14.3H19.5V11.7H14.3V6.5H11.7Z" fill="#AEAEAE"/>
-		</svg>
-	`;
+  let addingItem = false;
+  let editingMode = false;
 
-  const addIconSVG2 = `
-		<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-  		<path d="M13 0C5.8201 0 0 5.8201 0 13C0 20.1799 5.8201 26 13 26C20.1799 26 26 20.1799 26 13C26 5.8201 20.1799 0 13 0ZM19.5 14.3H14.3V19.5H11.7V14.3H6.5V11.7H11.7V6.5H14.3V11.7H19.5V14.3Z" fill="#666666"/>
-		</svg>
-	`;
-
-  const editIconSVG1 = `
-		<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path d="M2.84526 23.1507H4.83693L17.1071 10.863L15.1154 8.86849L2.84526 21.1562V23.1507ZM23.1888 8.79726L17.1427 2.8137L19.1343 0.819178C19.6797 0.273059 20.3497 0 21.1445 0C21.9383 0 22.6079 0.273059 23.1533 0.819178L25.1449 2.8137C25.6903 3.35982 25.9748 4.01896 25.9985 4.79112C26.0222 5.56234 25.7614 6.221 25.2161 6.76712L23.1888 8.79726ZM21.126 10.8986L6.04617 26H0V19.9452L15.0799 4.84384L21.126 10.8986ZM16.1113 9.86575L15.1154 8.86849L17.1071 10.863L16.1113 9.86575Z" fill="#AEAEAE"/>
-		</svg>
-	`;
-
-  const editIconSVG2 = `
-		<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path d="M2.84526 23.1507H4.83693L17.1071 10.863L15.1154 8.86849L2.84526 21.1562V23.1507ZM23.1888 8.79726L17.1427 2.8137L19.1343 0.819178C19.6797 0.273059 20.3497 0 21.1445 0C21.9383 0 22.6079 0.273059 23.1533 0.819178L25.1449 2.8137C25.6903 3.35982 25.9748 4.01896 25.9985 4.79112C26.0222 5.56234 25.7614 6.221 25.2161 6.76712L23.1888 8.79726ZM21.126 10.8986L6.04617 26H0V19.9452L15.0799 4.84384L21.126 10.8986ZM16.1113 9.86575L15.1154 8.86849L17.1071 10.863L16.1113 9.86575Z" fill="black"/>
-		</svg>
-	`;
-
-  // 추가 아이콘 클릭했을 때
+  // 플러스아이콘(#todo-add-icon) 클릭했을 때 입력창 토글
   addIcon.addEventListener("click", function () {
-    if (addItem.style.display === "none" || addItem.style.display === "") {
-      addItem.style.display = "flex";
-      addIcon.innerHTML = addIconSVG2;
-      editIcon.innerHTML = editIconSVG1;
-    } else {
-      addItem.style.display = "none";
-      addIcon.innerHTML = addIconSVG1;
+    addingItem = !addingItem;
+    addItem.style.display = addingItem ? "flex" : "none";
+    addIcon.src = addingItem ? "/img/full-plus-btn.png" : "/img/plus-btn.png";
+    addTimeInput.value = "";
+    addContInput.value = "";
 
-      //시간, 내용 초기화
-      addTimeInput.value = "";
-      addContInput.value = "";
-    }
+    // 삭제 버튼 숨기기
+    const delIcon2 = document.querySelectorAll(".todo-del");
+    delIcon2.forEach((icon) => {
+      icon.style.display = "none";
+    });
   });
 
-  //편집 아이콘 클릭했을 때
-  editIcon.addEventListener("click", function () {
-    if (delIcon.style.display === "none" || delIcon.style.display === "") {
-      delIcon.style.display = "block";
-      editIcon.innerHTML = editIconSVG2;
-    } else {
-      delIcon.style.display = "none";
-      editIcon.innerHTML = editIconSVG1;
+  // 오늘 날짜 YYYY-MM-DD
+  function getTodayDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  // 투두리스트 목록 가져오기
+  function loadTodoLists() {
+    const todayDate = getTodayDate();
+
+    fetch(API_SERVER_DOMAIN + `/todolists/date/${todayDate}/`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        todoMid.innerHTML = ""; //목록 비우기
+        data.forEach((item) => {
+          addTodoToList(item.time, item.content, item.id);
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching todo-list:", error);
+      });
+  }
+
+  // 투두리스트를 목록에 추가
+  function addTodoToList(time, content, id) {
+    const listItemDiv = document.createElement("div");
+    listItemDiv.className = "list-item";
+    listItemDiv.dataset.id = id; //ID
+    listItemDiv.innerHTML = `
+      <img class="todo-check" src="/img/circle.png" />
+      <div class="todo-time">${time}</div>
+      <div class="todo-cont">${content}</div>
+      <img class="todo-del" src="/img/del-icon.png" style="display: none"/>
+    `;
+
+    // 투두리스트 완료 -> 체크버튼 클릭 -> 버튼 변경 & 폰트색상 변경
+    const checkBtn = listItemDiv.querySelector(".todo-check");
+    const todoTimeDiv = listItemDiv.querySelector(".todo-time");
+    const todoContDiv = listItemDiv.querySelector(".todo-cont");
+
+    checkBtn.addEventListener("click", function () {
+      if (checkBtn.src.includes("circle.png")) {
+        checkBtn.src = "/img/full-circle.png";
+        todoTimeDiv.style.color = "#AEAEAE";
+        todoContDiv.style.color = "#AEAEAE";
+      } else {
+        checkBtn.src = "/img/circle.png";
+        todoTimeDiv.style.color = "#ff452b";
+        todoContDiv.style.color = "#000000";
+      }
+    });
+
+    // 목록에 추가 (시간순 정렬)
+    const listItems = document.querySelectorAll(".list-item");
+    let inserted = false;
+    listItems.forEach((item) => {
+      const itemTime = item.querySelector(".todo-time").textContent;
+      if (time < itemTime && !inserted) {
+        item.parentNode.insertBefore(listItemDiv, item);
+        inserted = true;
+      }
+    });
+    if (!inserted) {
+      document.querySelector(".todo-mid").appendChild(listItemDiv);
     }
-
-    addItem.style.display = "none";
-    addIcon.innerHTML = addIconSVG1;
-
-    //시간, 내용 초기화
+    // // 시간, 내용 초기화
     // addTimeInput.value = "";
     // addContInput.value = "";
+    // addItem.style.display = "none";
+    // addingItem = false;
+
+    // // 플러스 아이콘 상태 변경
+    // addIcon.src = "/img/plus-btn.png";
+  }
+
+  // 추가(.add-btn) 클릭했을 때 목록에 추가
+  // time, content
+  addBtn.addEventListener("click", function () {
+    const time = addTimeInput.value.trim();
+    const content = addContInput.value.trim();
+
+    if (!time || !content) {
+      alert("시간과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    // 입력한 투두리스트 서버에 전송 (time, content)
+    fetch(API_SERVER_DOMAIN + "/todolists/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+      body: JSON.stringify({
+        date: getTodayDate(),
+        time: time,
+        content: content,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.id) {
+          //addTodoToList(data.time, data.content, data.id);
+          addTimeInput.value = "";
+          addContInput.value = "";
+          addItem.style.display = "none";
+          addingItem = false;
+          addIcon.src = "/img/plus-btn.png";
+          loadTodoLists();
+        } else {
+          console.log("투두리스트를 추가에 실패했습니다: " + data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error adding todo-list:", error);
+      });
+
+    // if (time && content) {
+    //   const listItemDiv = document.createElement("div");
+    //   addIcon.src = "/img/plus-btn.png";
+
+    //   listItemDiv.className = "list-item";
+    //   listItemDiv.innerHTML = `
+    //     <img class="todo-check" src="/img/circle.png" />
+    //     <div class="todo-time">${time}</div>
+    //     <div class="todo-cont">${content}</div>
+    //     <img class="todo-del" src="/img/del-icon.png" style="display: none"/>
+    //   `;
+
+    //   // 투두리스트 완료 -> 체크버튼 클릭 -> 버튼 변경 & 폰트색상 변경
+    //   const checkBtn = listItemDiv.querySelector(".todo-check");
+    //   const todoTimeDiv = listItemDiv.querySelector(".todo-time");
+    //   const todoContDiv = listItemDiv.querySelector(".todo-cont");
+
+    //   checkBtn.addEventListener("click", function () {
+    //     if (checkBtn.src.includes("circle.png")) {
+    //       checkBtn.src = "/img/full-circle.png";
+    //       todoTimeDiv.style.color = "#AEAEAE";
+    //       todoContDiv.style.color = "#AEAEAE";
+    //     } else {
+    //       checkBtn.src = "/img/circle.png";
+    //       todoTimeDiv.style.color = "#ff452b";
+    //       todoContDiv.style.color = "#000000";
+    //     }
+    //   });
+
+    //   // 목록에 추가 (시간순 정렬)
+    //   const listItems = document.querySelectorAll(".list-item");
+    //   let inserted = false;
+    //   listItems.forEach((item) => {
+    //     const itemTime = item.querySelector(".todo-time").textContent;
+    //     if (time < itemTime && !inserted) {
+    //       item.parentNode.insertBefore(listItemDiv, item);
+    //       inserted = true;
+    //     }
+    //   });
+    //   if (!inserted) {
+    //     document.querySelector(".todo-mid").appendChild(listItemDiv);
+    //   }
+
+    //   // 시간, 내용 초기화
+    //   addTimeInput.value = "";
+    //   addContInput.value = "";
+    //   addItem.style.display = "none";
+    //   addingItem = false;
+    // }
   });
+
+  // 편집 아이콘 클릭했을 때
+  editIcon.addEventListener("click", function () {
+    const delIcons = document.querySelectorAll(".todo-del");
+    delIcons.forEach((icon) => {
+      icon.style.display =
+        icon.style.display === "none" || icon.style.display === "" ? "block" : "none";
+    });
+
+    editingMode = !editingMode;
+    editIcon.src = editingMode ? "/img/full-edit-btn.png" : "/img/big-edit-btn.png";
+  });
+
+  // 투두리스트 삭제
+  todoMid.addEventListener("click", function (event) {
+    if (event.target.classList.contains("todo-del")) {
+      const listItem = event.target.closest(".list-item");
+      const id = listItem.dataset.id;
+
+      if (confirm("삭제하시겠습니까?")) {
+        fetch(API_SERVER_DOMAIN + `/todolists/delete/${id}/`, {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to delete");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data.success) {
+              loadTodoLists();
+              // listItem.remove();
+            } else {
+              console.log("삭제 실패:", data.message);
+            }
+          })
+          .catch((error) => {
+            console.error("투두 삭제 중 오류 발생:", error);
+          });
+      }
+    }
+  });
+  loadTodoLists();
 });

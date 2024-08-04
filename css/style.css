@@ -10,19 +10,19 @@
 @import "diary-write.css";
 @import "diary-detail.css";
 @import "store.css";
+@import "select-badge.css";
 * {
-  box-sizing: border-box;
-  font-family: "Pretendard-Regular";
+    box-sizing: border-box;
+    font-family: "Pretendard-Regular";
 }
 
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
-  font-weight: 400;
-  font-style: normal;
+    font-family: "Pretendard-Regular";
+    src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
 }
 
 body {
-  font-family: "Pretendard-Regular";
+    font-family: "Pretendard-Regular";
 }

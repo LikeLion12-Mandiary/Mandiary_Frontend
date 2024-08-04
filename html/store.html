@@ -16,7 +16,7 @@
             <a href="/html/home.html" style="color: #ff452b">MANDAL-ART</a>
           </li>
           <li><a href="/html/todo-list.html">TODO-LIST</a></li>
-          <li><a href="#">DIARY</a></li>
+          <li><a href="/html/diary.html">DIARY</a></li>
           <li><a href="/html/mypage.html">MY PAGE</a></li>
         </ul>
         <a href="#">
@@ -34,20 +34,60 @@
       <p class="color-title">만다라트 컬러</p>
 
       <div class="color-line">
-        <img src="/img/prev-btn.png" class="prev-btn" />
-        <div class="color-box">
-          <img src="/img/store_color/summer.png" />
-          <p class="store-name">Summer Ocean</p>
-          <p class="store-info">청량한 여름바다의 색감</p>
-          <div class="buy-btn"><p>구매</p></div>
+        <button class="color-prev-btn">
+          <img src="/img/prev-btn.png" class="prev-btn" />
+        </button>
+
+        <div class="slide-container">
+          <div class="slide">
+            <div class="color-box">
+              <img src="/img/store_color/summer.png" />
+              <p class="store-name">Summer Ocean</p>
+              <p class="store-info">청량한 여름바다의 색감</p>
+              <div class="buy-btn"><p>구매</p></div>
+            </div>
+            <div class="color-box">
+              <img src="/img/store_color/macaron.png" />
+              <p class="store-name">Macaron</p>
+              <p class="store-info">부드러운 파스텔 색감</p>
+              <div class="buy-btn"><p>구매</p></div>
+            </div>
+          </div>
+
+          <div class="slide">
+            <div class="color-box">
+              <img src="/img/store_color/neon.png" />
+              <p class="store-name">Neon</p>
+              <p class="store-info">형광펜 느낌의 컬러팩</p>
+              <div class="buy-btn"><p>구매</p></div>
+            </div>
+            <div class="color-box">
+              <img src="/img/store_color/gray.png" />
+              <p class="store-name">Gray Scale</p>
+              <p class="store-info">빛과 그림자의 명암 단계</p>
+              <div class="buy-btn"><p>구매</p></div>
+            </div>
+          </div>
+
+          <div class="slide">
+            <div class="color-box">
+              <img src="/img/store_color/forest.png" />
+              <p class="store-name">Forest</p>
+              <p class="store-info">상쾌한 숲속의 색감</p>
+              <div class="buy-btn"><p>구매</p></div>
+            </div>
+            <div class="color-box">
+              <img src="/img/store_color/avocado.png" />
+              <p class="store-name">Avocado</p>
+              <p class="store-info">부드러운 아보카도 컬러</p>
+              <div class="buy-btn"><p>구매</p></div>
+            </div>
+          </div>
         </div>
-        <div class="color-box">
-          <img src="/img/store_color/macaron.png" />
-          <p class="store-name">Macaron</p>
-          <p class="store-info">부드러운 파스텔 색감</p>
-          <div class="buy-btn"><p>구매</p></div>
-        </div>
-        <img src="/img/next-btn.png" class="next-btn" />
+
+        <button class="color-next-btn">
+          <img src="/img/next-btn.png" class="next-btn" />
+        </button>
       </div>
 
       <hr />
@@ -59,20 +99,69 @@
       </div>
 
       <div class="badge-line">
-        <img src="/img/prev-btn.png" class="prev-btn" />
-        <div class="badge-box">
-          <img src="/img/store_badge/fruit.png" />
-          <p class="store-name">Fruit</p>
-          <p class="store-info">맛있는 과일 배지</p>
-          <div class="buy-btn"><p>구매</p></div>
+        <button class="badge-prev-btn">
+          <img src="/img/prev-btn.png" class="prev-btn" />
+        </button>
+
+        <div class="slide-container">
+          <div class="slide2">
+            <div class="badge-box">
+              <img
+                src="/img/store_badge/fruit.png"
+                style="width: 276px; height: 296px; margin-bottom: 12px"
+              />
+              <p class="store-name">Fruit</p>
+              <p class="store-info">맛있는 과일 배지</p>
+              <div class="buy-btn"><p>구매</p></div>
+            </div>
+            <div class="badge-box">
+              <img
+                src="/img/store_badge/flower.png"
+                style="width: 279px; height: 287px; margin-bottom: 21px"
+              />
+              <p class="store-name">Flower</p>
+              <p class="store-info">화려한 꽃잎 배지</p>
+              <div class="buy-btn"><p>구매</p></div>
+            </div>
+          </div>
+
+          <div class="slide2">
+            <div class="badge-box" style="padding-top: 30px">
+              <img
+                src="/img/store_badge/bottle.png"
+                style="width: 264.7px; height: 272px; margin-bottom: 27px"
+              />
+              <p class="store-name">Bottle Caps 2</p>
+              <p class="store-info">빈티지 감성의 배지</p>
+              <div class="buy-btn"><p>구매</p></div>
+            </div>
+            <div class="badge-box" style="padding-top: 25px">
+              <img
+                src="/img/store_badge/green.png"
+                style="width: 272px; height: 283px; margin-bottom: 21px"
+              />
+              <p class="store-name">Green</p>
+              <p class="store-info">초록 모음집</p>
+              <div class="buy-btn"><p>구매</p></div>
+            </div>
+          </div>
+
+          <div class="slide2">
+            <div class="badge-box" style="padding-top: 30px">
+              <img
+                src="/img/store_badge/button.png"
+                style="width: 272px; height: 279px; margin-bottom: 20px"
+              />
+              <p class="store-name">Button</p>
+              <p class="store-info">동글동글 단추 배지</p>
+              <div class="buy-btn"><p>구매</p></div>
+            </div>
+          </div>
         </div>
-        <div class="badge-box">
-          <img src="/img/store_badge/flower.png" />
-          <p class="store-name">Flower</p>
-          <p class="store-info">화려한 꽃잎 배지</p>
-          <div class="buy-btn"><p>구매</p></div>
-        </div>
-        <img src="/img/next-btn.png" class="next-btn" />
+
+        <button class="badge-next-btn">
+          <img src="/img/next-btn.png" class="next-btn" />
+        </button>
       </div>
     </div>
 

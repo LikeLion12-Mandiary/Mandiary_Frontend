@@ -5,7 +5,7 @@
 
 .color-title,
 .badge-title {
-  padding: 25px 0 33px 38px;
+  padding: 25px 0 30px 38px;
   margin: 0;
   font-size: 32px;
   font-weight: bold;
@@ -21,6 +21,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.slide-container {
+  width: 865px;
+  height: 484px;
+  display: flex;
+  gap: 25px;
+  overflow: hidden;
+}
+
+.slide,
+.slide2 {
+  width: 100%;
+  display: flex;
+  gap: 25px;
+  transition: transform 0.7s;
 }
 
 .badge-line {
@@ -52,12 +68,6 @@
   width: 255.91px;
   height: 255.9px;
   margin-bottom: 23px;
-}
-
-.badge-box > img {
-  width: 276px;
-  height: 296px;
-  margin-bottom: 11px;
 }
 
 .store-name {
@@ -100,7 +110,7 @@
 .badge-title-line {
   display: flex;
   align-items: center;
-  padding: 0 0 33px 38px;
+  padding: 0 0 30px 38px;
 }
 
 .badge-title {
@@ -119,4 +129,13 @@
   font-size: 24px;
   color: #aeaeae;
   margin: 0;
+}
+
+.color-line > button,
+.badge-line > button {
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+  width: 13px;
+  height: 22px;
 }
