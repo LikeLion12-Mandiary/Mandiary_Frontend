@@ -31,6 +31,36 @@ function deleteCookie(name) {
   document.cookie = name + "=; Expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;";
 }
 
+// 유저 정보 가져오기
+function fetchUserInfo() {
+  fetch(API_SERVER_DOMAIN + "/users/profile/", {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  })
+    .then((response) => {
+      // 401 Unauthorized 에러가 발생한 경우
+      if (response.status === 401) {
+        const cookieName = "accessToken";
+        deleteCookie(cookieName);
+        window.location.href = "./login.html";
+        return;
+      }
+      if (!response.ok) {
+        throw new Error("Failed to fetch");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const userId = data.id;
+      console.log("User ID:", userId);
+    })
+    .catch((error) => {
+      console.error("Error fetching user info", error);
+    });
+}
+fetchUserInfo();
 // 캘린더 =======================================================================
 
 // 날짜 가져오기
@@ -116,26 +146,156 @@ const nextMonth = () => {
 // 투두 ===========================================================================================
 
 document.addEventListener("DOMContentLoaded", function () {
-  const addItem = document.querySelector(".add-item");
   const addIcon = document.getElementById("todo-add-icon");
   const editIcon = document.getElementById("todo-edit-icon");
-  const addTimeInput = document.querySelector(".add-time");
-  const addContInput = document.querySelector(".add-cont");
-  const delIcon = document.querySelector(".todo-del");
-  const addBtn = document.querySelector(".add-btn");
   const todoMid = document.querySelector(".todo-mid");
+  // const addItem = document.querySelector(".add-item");
+  // const addTimeInput = document.querySelector(".add-time");
+  // const addContInput = document.querySelector(".add-cont");
+  // const delIcon = document.querySelector(".todo-del");
+  // const addBtn = document.querySelector(".add-btn");
 
   let addingItem = false;
   let editingMode = false;
 
   // 플러스아이콘(#todo-add-icon) 클릭했을 때 입력창 토글
   addIcon.addEventListener("click", function () {
-    addingItem = !addingItem;
-    addItem.style.display = addingItem ? "flex" : "none";
-    addIcon.src = addingItem ? "/img/full-plus-btn.png" : "/img/plus-btn.png";
-    addTimeInput.value = "";
-    addContInput.value = "";
+    console.log("플러스 아이콘 클릭");
+    //addingItem = !addingItem;
 
+    if (!addingItem) {
+      //입력창 생성
+      const addItemDiv = document.createElement("div");
+      addItemDiv.className = "add-item";
+      addItemDiv.innerHTML = `
+        <input class="add-time" type="text" placeholder="00:00" />
+        <input class="add-cont" type="text" placeholder="내용 입력" />
+        <div class="add-btn">추가</div>
+      `;
+      todoMid.insertBefore(addItemDiv, todoMid.firstChild);
+
+      const addBtn = document.querySelector(".add-btn");
+      const addTimeInput = document.querySelector(".add-time");
+      const addContInput = document.querySelector(".add-cont");
+
+      // addItem.style.display = "flex"; // 입력창 보이기
+      // addIcon.src = "/img/full-plus-btn.png";
+
+      // addItem.style.display = addingItem ? "flex" : "none";
+      // addIcon.src = addingItem ? "/img/full-plus-btn.png" : "/img/plus-btn.png";
+      // addTimeInput.value = "";
+      // addContInput.value = "";
+
+      // 추가(.add-btn) 클릭했을 때 목록에 추가
+      // time, content
+      addBtn.addEventListener("click", function () {
+        const time = addTimeInput.value.trim();
+        const content = addContInput.value.trim();
+        const todayDate = getTodayDate();
+
+        if (!time || !content) {
+          alert("시간과 내용을 모두 입력해주세요.");
+          return;
+        }
+
+        const listItemDiv = document.createElement("div");
+        addIcon.src = "/img/plus-btn.png";
+        listItemDiv.className = "list-item";
+        listItemDiv.innerHTML = `
+          <img class="todo-check" src="/img/circle.png" />
+          <div class="todo-time">${time}</div>
+          <div class="todo-cont">${content}</div>
+          <img class="todo-del" src="/img/del-icon.png" style="display: none"/>
+        `;
+        const checkBtn = listItemDiv.querySelector(".todo-check");
+        const todoTimeDiv = listItemDiv.querySelector(".todo-time");
+        const todoContDiv = listItemDiv.querySelector(".todo-cont");
+
+        checkBtn.addEventListener("click", function () {
+          if (checkBtn.src.includes("circle.png")) {
+            checkBtn.src = "/img/full-circle.png";
+            todoTimeDiv.style.color = "#AEAEAE";
+            todoContDiv.style.color = "#AEAEAE";
+          } else {
+            checkBtn.src = "/img/circle.png";
+            todoTimeDiv.style.color = "#ff452b";
+            todoContDiv.style.color = "#000000";
+          }
+        });
+        const listItems = document.querySelectorAll(".list-item");
+        let inserted = false;
+        listItems.forEach((item) => {
+          const itemTime = item.querySelector(".todo-time").textContent;
+          if (time < itemTime && !inserted) {
+            item.parentNode.insertBefore(listItemDiv, item);
+            inserted = true;
+          }
+        });
+        if (!inserted) {
+          document.querySelector(".todo-mid").appendChild(listItemDiv);
+        }
+        console.log("data:", { date: todayDate, time: time, content: content });
+        // 입력한 투두리스트 서버에 전송 (time, content)
+        const userId = fetchUserInfo();
+        fetch(API_SERVER_DOMAIN + `/todolists/?date=`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + accessToken,
+          },
+          body: JSON.stringify({
+            date: todayDate,
+            time: time,
+            content: content,
+          }),
+        })
+          .then((response) => {
+            // 401 Unauthorized 에러가 발생한 경우
+            if (response.status === 401) {
+              const cookieName = "accessToken";
+              deleteCookie(cookieName);
+              window.location.href = "./login.html";
+              return;
+            }
+            if (!response.ok) {
+              console.error(`Error: ${response.status} ${response.statusText}`);
+              throw new Error("Failed to fetch");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Server response:", data);
+            console.log(data.id);
+            if (data.id) {
+              //addTodoToList(data.time, data.content, data.id);
+              listItemDiv.setAttribute("data-id", data.id);
+
+              addTimeInput.value = "";
+              addContInput.value = "";
+              addItemDiv.remove(); // 입력창 제거
+              addingItem = false;
+              addIcon.src = "/img/plus-btn.png";
+              loadTodoLists();
+            } else {
+              console.log("투두리스트를 추가에 실패했습니다: " + data.message);
+            }
+          })
+          .catch((error) => {
+            console.error("Error adding todo-list:", error);
+          });
+      });
+
+      addingItem = true;
+      addIcon.src = "/img/full-plus-btn.png";
+    } else {
+      // // 입력창이 이미 보이는 경우 숨기기
+      // const addItemDiv = document.querySelector(".add-item");
+      // if (addItemDiv) {
+      //   addItemDiv.remove();
+      // }
+      addingItem = false;
+      addIcon.src = "/img/plus-btn.png";
+    }
     // 삭제 버튼 숨기기
     const delIcon2 = document.querySelectorAll(".todo-del");
     delIcon2.forEach((icon) => {
@@ -155,7 +315,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // 투두리스트 목록 가져오기
   function loadTodoLists() {
     const todayDate = getTodayDate();
+    //console.log(`Fetching todo list for date: ${todayDate}`);
 
+    // 투두 목록
     fetch(API_SERVER_DOMAIN + `/todolists/date/${todayDate}/`, {
       method: "GET",
       headers: {
@@ -163,15 +325,24 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     })
       .then((response) => {
+        // 401 Unauthorized 에러가 발생한 경우
+        if (response.status === 401) {
+          const cookieName = "accessToken";
+          deleteCookie(cookieName);
+          window.location.href = "./login.html";
+          return;
+        }
         if (!response.ok) {
           throw new Error("Failed to fetch");
         }
         return response.json();
       })
       .then((data) => {
-        todoMid.innerHTML = ""; //목록 비우기
+        console.log("loadTodoLists: ", data);
+        // todoMid.innerHTML = ""; //목록 비우기
+        console.log("forEach", data);
         data.forEach((item) => {
-          addTodoToList(item.time, item.content, item.id);
+          addTodoToList(item.time, item.content);
         });
       })
       .catch((error) => {
@@ -180,16 +351,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // 투두리스트를 목록에 추가
-  function addTodoToList(time, content, id) {
+  function addTodoToList(time, content) {
+    console.log(`todo: ${time} / ${content}`);
     const listItemDiv = document.createElement("div");
     listItemDiv.className = "list-item";
-    listItemDiv.dataset.id = id; //ID
     listItemDiv.innerHTML = `
-      <img class="todo-check" src="/img/circle.png" />
-      <div class="todo-time">${time}</div>
-      <div class="todo-cont">${content}</div>
-      <img class="todo-del" src="/img/del-icon.png" style="display: none"/>
-    `;
+    <img class="todo-check" src="/img/circle.png" />
+    <div class="todo-time">${time}</div>
+    <div class="todo-cont">${content}</div>
+    <img class="todo-del" src="/img/del-icon.png" style="display: none"/>
+  `;
 
     // 투두리스트 완료 -> 체크버튼 클릭 -> 버튼 변경 & 폰트색상 변경
     const checkBtn = listItemDiv.querySelector(".todo-check");
@@ -221,113 +392,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!inserted) {
       document.querySelector(".todo-mid").appendChild(listItemDiv);
     }
-    // // 시간, 내용 초기화
-    // addTimeInput.value = "";
-    // addContInput.value = "";
-    // addItem.style.display = "none";
-    // addingItem = false;
-
-    // // 플러스 아이콘 상태 변경
-    // addIcon.src = "/img/plus-btn.png";
   }
-
-  // 추가(.add-btn) 클릭했을 때 목록에 추가
-  // time, content
-  addBtn.addEventListener("click", function () {
-    const time = addTimeInput.value.trim();
-    const content = addContInput.value.trim();
-
-    if (!time || !content) {
-      alert("시간과 내용을 모두 입력해주세요.");
-      return;
-    }
-
-    // 입력한 투두리스트 서버에 전송 (time, content)
-    fetch(API_SERVER_DOMAIN + "/todolists/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-      body: JSON.stringify({
-        date: getTodayDate(),
-        time: time,
-        content: content,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.id) {
-          //addTodoToList(data.time, data.content, data.id);
-          addTimeInput.value = "";
-          addContInput.value = "";
-          addItem.style.display = "none";
-          addingItem = false;
-          addIcon.src = "/img/plus-btn.png";
-          loadTodoLists();
-        } else {
-          console.log("투두리스트를 추가에 실패했습니다: " + data.message);
-        }
-      })
-      .catch((error) => {
-        console.error("Error adding todo-list:", error);
-      });
-
-    // if (time && content) {
-    //   const listItemDiv = document.createElement("div");
-    //   addIcon.src = "/img/plus-btn.png";
-
-    //   listItemDiv.className = "list-item";
-    //   listItemDiv.innerHTML = `
-    //     <img class="todo-check" src="/img/circle.png" />
-    //     <div class="todo-time">${time}</div>
-    //     <div class="todo-cont">${content}</div>
-    //     <img class="todo-del" src="/img/del-icon.png" style="display: none"/>
-    //   `;
-
-    //   // 투두리스트 완료 -> 체크버튼 클릭 -> 버튼 변경 & 폰트색상 변경
-    //   const checkBtn = listItemDiv.querySelector(".todo-check");
-    //   const todoTimeDiv = listItemDiv.querySelector(".todo-time");
-    //   const todoContDiv = listItemDiv.querySelector(".todo-cont");
-
-    //   checkBtn.addEventListener("click", function () {
-    //     if (checkBtn.src.includes("circle.png")) {
-    //       checkBtn.src = "/img/full-circle.png";
-    //       todoTimeDiv.style.color = "#AEAEAE";
-    //       todoContDiv.style.color = "#AEAEAE";
-    //     } else {
-    //       checkBtn.src = "/img/circle.png";
-    //       todoTimeDiv.style.color = "#ff452b";
-    //       todoContDiv.style.color = "#000000";
-    //     }
-    //   });
-
-    //   // 목록에 추가 (시간순 정렬)
-    //   const listItems = document.querySelectorAll(".list-item");
-    //   let inserted = false;
-    //   listItems.forEach((item) => {
-    //     const itemTime = item.querySelector(".todo-time").textContent;
-    //     if (time < itemTime && !inserted) {
-    //       item.parentNode.insertBefore(listItemDiv, item);
-    //       inserted = true;
-    //     }
-    //   });
-    //   if (!inserted) {
-    //     document.querySelector(".todo-mid").appendChild(listItemDiv);
-    //   }
-
-    //   // 시간, 내용 초기화
-    //   addTimeInput.value = "";
-    //   addContInput.value = "";
-    //   addItem.style.display = "none";
-    //   addingItem = false;
-    // }
-  });
 
   // 편집 아이콘 클릭했을 때
   editIcon.addEventListener("click", function () {
@@ -355,6 +420,13 @@ document.addEventListener("DOMContentLoaded", function () {
           },
         })
           .then((response) => {
+            // 401 Unauthorized 에러가 발생한 경우
+            if (response.status === 401) {
+              const cookieName = "accessToken";
+              deleteCookie(cookieName);
+              window.location.href = "./login.html";
+              return;
+            }
             if (!response.ok) {
               throw new Error("Failed to delete");
             }
