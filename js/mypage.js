@@ -1,7 +1,67 @@
-//나의 만다라트
+let API_SERVER_DOMAIN = "http://3.38.46.212";
+const accessToken = getCookie("accessToken");
 
-// 만다라트 목록 표시
-// 임의의 데이터
+// 쿠키 관련 함수들
+function setCookie(name, value, days) {
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var cookies = document.cookie.split(";");
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i];
+    while (cookie.charAt(0) === " ") {
+      cookie = cookie.substring(1, cookie.length);
+    }
+    if (cookie.indexOf(nameEQ) === 0) {
+      return cookie.substring(nameEQ.length, cookie.length);
+    }
+  }
+  return null;
+}
+
+function deleteCookie(name) {
+  document.cookie = name + "=; Expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;";
+}
+
+// 유저 정보 가져오기
+function fetchUserInfo() {
+  fetch(API_SERVER_DOMAIN + "/users/profile/", {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  })
+    .then((response) => {
+      // 401 Unauthorized 에러가 발생한 경우
+      if (response.status === 401) {
+        const cookieName = "accessToken";
+        deleteCookie(cookieName);
+        window.location.href = "./login.html";
+        return;
+      }
+      if (!response.ok) {
+        throw new Error("Failed to fetch");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const userId = data.id;
+      console.log("User ID:", userId);
+    })
+    .catch((error) => {
+      console.error("Error fetching user info", error);
+    });
+}
+
+//나의 만다라트
 
 document.addEventListener("DOMContentLoaded", function () {
   const mdatContent = document.querySelector(".mdat-content");
@@ -16,95 +76,175 @@ document.addEventListener("DOMContentLoaded", function () {
   let mandalartData = []; // 만다라트 저장 배열
   let showFinishMdats = false;
 
-  // 테스트용 무작위 목표 데이터를 생성하는 함수
-  function createTestMandalartData() {
-    return [
-      {
-        name: "건강 관리",
-        goals: [
-          { name: "운동", completed: true, badge: "/img/badge_unlock/1.png" },
-          { name: "식이요법", completed: false, badge: "" },
-          { name: "수면", completed: true, badge: "/img/badge_unlock/3.png" },
-          { name: "스트레스 관리", completed: false, badge: "" },
-          { name: "건강 관리", completed: "", badge: "/img/badge_unlock/5.png" },
-          { name: "비타민 섭취", completed: false, badge: "" },
-          { name: "스트레칭", completed: true, badge: "/img/badge_unlock/7.png" },
-          { name: "휴식", completed: false, badge: "" },
-          { name: "명상", completed: true, badge: "/img/badge_unlock/9.png" },
-        ],
+  // 진행 중인 만다라트 데이터 가져오기
+  function fetchMandalartData() {
+    fetch(API_SERVER_DOMAIN + "/mandalarts/inprogress/", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + accessToken,
       },
-      {
-        name: "개인 개발",
-        goals: [
-          { name: "코딩 연습", completed: true, badge: "/img/badge_unlock/1.png" },
-          { name: "독서", completed: true, badge: "/img/badge_unlock/2.png" },
-          { name: "새 기술 학습", completed: false, badge: "" },
-          { name: "온라인 강의 수강", completed: false, badge: "" },
-          { name: "개인 개발", completed: "", badge: "" },
-          { name: "포트폴리오 제작", completed: true, badge: "/img/badge_unlock/6.png" },
-          { name: "네트워킹", completed: true, badge: "/img/badge_unlock/7.png" },
-          { name: "프로젝트 진행", completed: true, badge: "/img/badge_unlock/8.png" },
-          { name: "발표 연습", completed: true, badge: "/img/badge_unlock/9.png" },
-        ],
-      },
-      {
-        name: "건강 관리2",
-        goals: [
-          { name: "운동", completed: true, badge: "/img/badge_unlock/1.png" },
-          { name: "식이요법", completed: false, badge: "" },
-          { name: "수면", completed: true, badge: "/img/badge_unlock/3.png" },
-          { name: "스트레스 관리", completed: false, badge: "" },
-          { name: "건강 관리2", completed: "", badge: "" },
-          { name: "비타민 섭취", completed: false, badge: "" },
-          { name: "스트레칭", completed: true, badge: "/img/badge_unlock/7.png" },
-          { name: "휴식", completed: false, badge: "" },
-          { name: "명상", completed: true, badge: "/img/badge_unlock/9.png" },
-        ],
-      },
-      {
-        name: "사회 활동",
-        goals: [
-          { name: "봉사 활동", completed: true, badge: "/img/badge_unlock/1.png" },
-          { name: "동호회 활동", completed: true, badge: "/img/badge_unlock/2.png" },
-          { name: "친구와의 만남", completed: false, badge: "" },
-          { name: "문화 행사 참여", completed: false, badge: "" },
-          { name: "사회 활동", completed: "", badge: "" },
-          { name: "취미 활동", completed: true, badge: "/img/badge_unlock/6.png" },
-          { name: "가족 시간", completed: true, badge: "/img/badge_unlock/7.png" },
-          { name: "연인과의 시간", completed: true, badge: "/img/badge_unlock/8.png" },
-          { name: "새로운 사람 만나기", completed: true, badge: "/img/badge_unlock/9.png" },
-        ],
-      },
-      {
-        name: "건강 관리3",
-        goals: [
-          { name: "운동", completed: true, badge: "/img/badge_unlock/1.png" },
-          { name: "식이요법", completed: false, badge: "" },
-          { name: "수면", completed: true, badge: "/img/badge_unlock/3.png" },
-          { name: "스트레스 관리", completed: false, badge: "" },
-          { name: "건강 관리3", completed: "", badge: "" },
-          { name: "비타민 섭취", completed: false, badge: "" },
-          { name: "스트레칭", completed: true, badge: "/img/badge_unlock/7.png" },
-          { name: "휴식", completed: false, badge: "" },
-          { name: "명상", completed: true, badge: "/img/badge_unlock/9.png" },
-        ],
-      },
-      {
-        name: "건강 관리4",
-        goals: [
-          { name: "운동", completed: true, badge: "/img/badge_unlock/1.png" },
-          { name: "식이요법", completed: true, badge: "/img/badge_unlock/2.png" },
-          { name: "수면", completed: true, badge: "/img/badge_unlock/3.png" },
-          { name: "스트레스 관리", completed: true, badge: "/img/badge_unlock/4.png" },
-          { name: "건강 관리4", completed: "", badge: "" },
-          { name: "비타민 섭취", completed: true, badge: "/img/badge_unlock/6.png" },
-          { name: "스트레칭", completed: true, badge: "/img/badge_unlock/7.png" },
-          { name: "휴식", completed: true, badge: "/img/badge_unlock/8.png" },
-          { name: "명상", completed: true, badge: "/img/badge_unlock/9.png" },
-        ],
-      },
-    ];
+    })
+      .then((response) => {
+        // 401 Unauthorized 에러가 발생한 경우
+        if (response.status === 401) {
+          const cookieName = "accessToken";
+          deleteCookie(cookieName);
+          window.location.href = "./login.html";
+          return;
+        }
+        if (!response.ok) {
+          throw new Error("Failed to fetch");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("mandalart data:", data);
+        data.forEach((mandalart) => fetchMandalartDetails(mandalart.id));
+        // mandalartData = data;
+        // console.log("mandalart data:", mandalartData);
+        // renderAllMdats(mandalartData);
+      })
+      .catch((error) => {
+        console.error("Error fetching mandalart data", error);
+      });
   }
+
+  // 완료한 만다라트 데이터 가져오기
+  function fetchCompletedMandalarts() {
+    fetch(API_SERVER_DOMAIN + "/mandalarts/complete/", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+      .then((response) => {
+        // 401 Unauthorized 에러가 발생한 경우
+        if (response.status === 401) {
+          const cookieName = "accessToken";
+          deleteCookie(cookieName);
+          window.location.href = "./login.html";
+          return;
+        }
+        if (!response.ok) {
+          throw new Error("Failed to fetch");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("finish mandalart data:", data);
+        data.forEach((mandalart) => fetchMandalartDetails(mandalart.id));
+        // mandalartData = data;
+        // console.log("mandalart data:", mandalartData);
+        // renderAllMdats(mandalartData);
+      })
+      .catch((error) => {
+        console.error("Error fetching mandalart data", error);
+      });
+  }
+
+  function fetchMandalartDetails(mandalartId) {
+    fetch(API_SERVER_DOMAIN + `/mandalarts/Mandalart-Goal/${mandalartId}/`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+      .then((response) => {
+        // 401 Unauthorized 에러가 발생한 경우
+        if (response.status === 401) {
+          const cookieName = "accessToken";
+          deleteCookie(cookieName);
+          window.location.href = "./login.html";
+          return;
+        }
+        if (!response.ok) {
+          throw new Error("Failed to fetch");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        renderAllMdats(mandalart);
+      })
+      .catch((error) => {
+        console.error("Error fetching mandalart data", error);
+      });
+  }
+
+  // 테스트용 무작위 목표 데이터를 생성하는 함수
+  // function createTestMandalartData() {
+  //   return [
+  // {
+  //   name: "건강 관리",
+  //   goals: [
+  //     { name: "운동", completed: true, badge: "/img/badge_unlock/1.png" },
+  //     { name: "식이요법", completed: false, badge: "" },
+  //     { name: "수면", completed: true, badge: "/img/badge_unlock/3.png" },
+  //     { name: "스트레스 관리", completed: false, badge: "" },
+  //     { name: "건강 관리", completed: "", badge: "/img/badge_unlock/5.png" },
+  //     { name: "비타민 섭취", completed: false, badge: "" },
+  //     { name: "스트레칭", completed: true, badge: "/img/badge_unlock/7.png" },
+  //     { name: "휴식", completed: false, badge: "" },
+  //     { name: "명상", completed: true, badge: "/img/badge_unlock/9.png" },
+  //   ],
+  // },
+  //     {
+  //       name: "개인 개발",
+  //       goals: [
+  //         { name: "코딩 연습", completed: true, badge: "/img/badge_unlock/1.png" },
+  //         { name: "독서", completed: true, badge: "/img/badge_unlock/2.png" },
+  //         { name: "새 기술 학습", completed: false, badge: "" },
+  //         { name: "온라인 강의 수강", completed: false, badge: "" },
+  //         { name: "개인 개발", completed: "", badge: "" },
+  //         { name: "포트폴리오 제작", completed: true, badge: "/img/badge_unlock/6.png" },
+  //         { name: "네트워킹", completed: true, badge: "/img/badge_unlock/7.png" },
+  //         { name: "프로젝트 진행", completed: true, badge: "/img/badge_unlock/8.png" },
+  //         { name: "발표 연습", completed: true, badge: "/img/badge_unlock/9.png" },
+  //       ],
+  //     },
+  //     {
+  //       name: "건강 관리2",
+  //       goals: [
+  //         { name: "운동", completed: true, badge: "/img/badge_unlock/1.png" },
+  //         { name: "식이요법", completed: false, badge: "" },
+  //         { name: "수면", completed: true, badge: "/img/badge_unlock/3.png" },
+  //         { name: "스트레스 관리", completed: false, badge: "" },
+  //         { name: "건강 관리2", completed: "", badge: "" },
+  //         { name: "비타민 섭취", completed: false, badge: "" },
+  //         { name: "스트레칭", completed: true, badge: "/img/badge_unlock/7.png" },
+  //         { name: "휴식", completed: false, badge: "" },
+  //         { name: "명상", completed: true, badge: "/img/badge_unlock/9.png" },
+  //       ],
+  //     },
+  //     {
+  //       name: "사회 활동",
+  //       goals: [
+  //         { name: "봉사 활동", completed: true, badge: "/img/badge_unlock/1.png" },
+  //         { name: "동호회 활동", completed: true, badge: "/img/badge_unlock/2.png" },
+  //         { name: "친구와의 만남", completed: false, badge: "" },
+  //         { name: "문화 행사 참여", completed: false, badge: "" },
+  //         { name: "사회 활동", completed: "", badge: "" },
+  //         { name: "취미 활동", completed: true, badge: "/img/badge_unlock/6.png" },
+  //         { name: "가족 시간", completed: true, badge: "/img/badge_unlock/7.png" },
+  //         { name: "연인과의 시간", completed: true, badge: "/img/badge_unlock/8.png" },
+  //         { name: "새로운 사람 만나기", completed: true, badge: "/img/badge_unlock/9.png" },
+  //       ],
+  //     },
+  //     {
+  //       name: "건강 관리3",
+  //       goals: [
+  //         { name: "운동", completed: true, badge: "/img/badge_unlock/1.png" },
+  //         { name: "식이요법", completed: false, badge: "" },
+  //         { name: "수면", completed: true, badge: "/img/badge_unlock/3.png" },
+  //         { name: "스트레스 관리", completed: false, badge: "" },
+  //         { name: "건강 관리3", completed: "", badge: "" },
+  //         { name: "비타민 섭취", completed: false, badge: "" },
+  //         { name: "스트레칭", completed: true, badge: "/img/badge_unlock/7.png" },
+  //         { name: "휴식", completed: false, badge: "" },
+  //         { name: "명상", completed: true, badge: "/img/badge_unlock/9.png" },
+  //       ],
+  //     },
+  //   ];
+  // }
 
   function finishedMandalartData() {
     return [
@@ -139,6 +279,16 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
   }
 
+  // 초기화 함수
+  function init() {
+    fetchMandalartData();
+    //mandalartData.forEach((mandalart) => renderMandalart(mandalart));
+    //mandalartData = createTestMandalartData();
+    //mandalartData.forEach((mandalart) => renderMandalart(mandalart)); // 테스트 데이터로 만다라트 렌더링
+    //changePage(0); // 첫페이지
+    fetchUserInfo();
+  }
+
   // 만다라트를 화면에 렌더링
   function renderMandalart(mandalart) {
     const item = document.createElement("div");
@@ -146,18 +296,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     item.innerHTML = `
       <div class="mdat-item-top">
-        ${mandalart.goals
-          .map(
-            (goal) => `
-          <div class="mdat-big-goal ${goal.completed ? "completed" : ""}">
-            ${goal.completed ? `<img class="goal-cap" src="${goal.badge}" alt="${goal.name}" />` : `<p>${goal.name}</p>`}
-          </div>
-        `
-          )
-          .join("")}
+        <div class="mdat-big-goal ${mandalart.completed ? "completed" : ""}">
+              ${mandalart.completed ? `<p>${mandalart.table_name}</p>` : `<p>${mandalart.table_name}</p>`}
+            </div>
       </div>
       <div class="mdat-item-mid">
-        <p class = 'mdat-name-input'>${mandalart.name}</p>
+        <p class = 'mdat-name-input'>${mandalart.table_name}</p>
         <img class='name-edit-btn' src="/img/edit-btn.png" alt="edit-button"/>
       </div>
       <div class="mdat-item-bottom">
@@ -183,16 +327,21 @@ document.addEventListener("DOMContentLoaded", function () {
         cap.style.opacity = "30%";
       });
     }
-
     mdatContent.appendChild(item);
     changePage(currentPage);
   }
 
   function renderAllMdats(data) {
+    console.log(data);
     mdatContent.innerHTML = "";
     data.forEach((mandalart) => renderMandalart(mandalart));
     changePage(currentPage); // 페이지 변경 처리
   }
+
+  // 플러스아이콘 클릭 //
+  plusIcon.addEventListener("click", function () {
+    renderEmptyMdat();
+  });
 
   // 빈 만다라트 생성
   function renderEmptyMdat() {
@@ -228,8 +377,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // 페이지 변경
   function changePage(page) {
     const allItems = mdatContent.querySelectorAll(".mdat-item");
-    const totalItemNum = showFinishMdats ? finishedMandalartData().length : mandalartData.length;
-    const totalPages = calTotalPageNum(showFinishMdats ? finishedMandalartData() : mandalartData);
+    const dataToShow = showFinishMdats ? fetchCompletedMandalarts() : fetchMandalartData();
+    const totalItemNum = dataToShow.length;
+    const totalPages = calTotalPageNum(dataToShow);
 
     // 페이지 조정
     if (page < 0) {
@@ -247,15 +397,8 @@ document.addEventListener("DOMContentLoaded", function () {
           : "none";
     });
 
-    prevBtn.style.visibility = currentPage === 0 ? "hidden" : "visible";
-    nextBtn.style.visibility = currentPage === totalPages - 1 ? "hidden" : "visible";
-  }
-
-  // 초기화 함수
-  function init() {
-    mandalartData = createTestMandalartData();
-    mandalartData.forEach((mandalart) => renderMandalart(mandalart)); // 테스트 데이터로 만다라트 렌더링
-    changePage(0); // 첫페이지
+    //prevBtn.style.visibility = currentPage === 0 ? "hidden" : "visible";
+    //nextBtn.style.visibility = currentPage === totalPages - 1 ? "hidden" : "visible";
   }
 
   prevBtn.addEventListener("click", () => changePage(currentPage - 1));
@@ -311,6 +454,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // 만다라트 이름 수정
+
   // mdatContent.addEventListener("click", function (event) {
   //   console.log(event.target);
   //   const item = event.target.closest(".mdat-item");
@@ -388,10 +532,10 @@ document.addEventListener("DOMContentLoaded", function () {
   //   // }
   // });
 
-  // 플러스아이콘 클릭
-  plusIcon.addEventListener("click", function () {
-    renderEmptyMdat();
-  });
+  // // 플러스아이콘 클릭
+  // plusIcon.addEventListener("click", function () {
+  //   renderEmptyMdat();
+  // });
 
   // 새 만다라트 - 생성버튼 클릭
   mdatContent.addEventListener("click", function (event) {
@@ -430,20 +574,22 @@ document.addEventListener("DOMContentLoaded", function () {
     changePage(0);
     showFinishMdats = !showFinishMdats;
     if (showFinishMdats) {
-      const finishedData = finishedMandalartData();
-      renderAllMdats(finishedData);
+      fetchCompletedMandalarts();
+      // const finishedData = finishedMandalartData();
+      // renderAllMdats(finishedData);
       checkIcon.src = "/img/full-check-btn.png";
     } else {
-      renderAllMdats(mandalartData);
+      fetchMandalartData();
+      // renderAllMdats(mandalartData);
       checkIcon.src = "/img/check-btn.png";
     }
   });
 
   // 플러스버튼 - 새 만다라트 추가
-  plusIcon.addEventListener("click", function () {
-    changePage(0);
-    plusIcon.src = "/img/full-plus-btn.png";
-  });
+  // plusIcon.addEventListener("click", function () {
+  //   changePage(0);
+  //   plusIcon.src = "/img/full-plus-btn.png";
+  // });
 
   //---------------------------------------------------------------------------------
   // 나의 칭호
