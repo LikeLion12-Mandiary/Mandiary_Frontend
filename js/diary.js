@@ -17,6 +17,10 @@ function getCookie(name) {
     return null;
 }
 
+function deleteCookie(name) {
+    document.cookie = name + "=; Expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;";
+}
+
 const diaryEntries = [{
         id: 1,
         user: {
@@ -259,6 +263,13 @@ document.addEventListener("DOMContentLoaded", function() {
             },
         })
         .then((response) => {
+            // 401 Unauthorized 에러가 발생한 경우
+            if (response.status === 401) {
+                const cookieName = "accessToken";
+                deleteCookie(cookieName);
+                window.location.href = "./login.html";
+                return;
+            }
             if (!response.ok) {
                 throw new Error("Login failed");
             }

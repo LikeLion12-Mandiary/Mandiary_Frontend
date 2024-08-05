@@ -27,9 +27,9 @@ function setCookie(name, value, days) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    if (accessToken) {
-        window.location.href = "./home.html";
-    }
+    // if (accessToken) {
+    //     window.location.href = "./home.html";
+    // }
 });
 
 document.getElementById("login-btn").addEventListener("click", function() {
@@ -55,7 +55,13 @@ document.getElementById("login-btn").addEventListener("click", function() {
         })
         .then((data) => {
             var accessToken = data.token;
-            setCookie("accessToken", accessToken, 1);
+            // setCookie("accessToken", accessToken, 1);
+
+            setCookie(
+                "accessToken",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyODQ3NDAxLCJpYXQiOjE3MjI4MzY2MDEsImp0aSI6IjZlYWQ1MjhhMDZkMzRmYmY4Y2Y0ZWMyZTJmNDAzZWEyIwidXNlcl9pZCI6M30.fA37sqY32yHbvOmC9SLZ-Re7UuykYwNKly18IyAPZg8",
+                1
+            );
 
             window.location.replace("./home.html");
         })
