@@ -127,3 +127,19 @@
   right: 7px;
   top: 7px;
 }
+
+/* 배경 이미지 */
+.sub div::after {
+  width: 100%;
+  height: 100%;
+  content: "";
+  position: absolute;
+  background-image: var(--after-bg-image);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+  opacity: 0.2;
+  top: 0px;
+  left: 0px;
+  border-radius: 10px;
+}

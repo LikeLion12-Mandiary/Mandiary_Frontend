@@ -127,3 +127,52 @@ if (sub8_8_success == "on") {
   alarmDiv.className = "alarm";
   subArr[7][7].appendChild(alarmDiv);
 }
+
+// 이미지
+var sub8_1_image = window.localStorage.getItem("sub8-1-image");
+if (sub8_1_image) {
+  subArr[7][0].style.setProperty("--after-bg-image", `url(${sub8_1_image})`);
+  subArr[7][0].style.backgroundColor = "transparent";
+}
+
+var sub8_2_image = window.localStorage.getItem("sub8-2-image");
+if (sub8_2_image) {
+  subArr[7][1].style.setProperty("--after-bg-image", `url(${sub8_2_image})`);
+  subArr[7][1].style.backgroundColor = "transparent";
+}
+
+var sub8_3_image = window.localStorage.getItem("sub8-3-image");
+if (sub8_3_image) {
+  subArr[7][2].style.setProperty("--after-bg-image", `url(${sub8_3_image})`);
+  subArr[7][2].style.backgroundColor = "transparent";
+}
+
+var sub8_4_image = window.localStorage.getItem("sub8-4-image");
+if (sub8_4_image) {
+  subArr[7][3].style.setProperty("--after-bg-image", `url(${sub8_4_image})`);
+  subArr[7][3].style.backgroundColor = "transparent";
+}
+
+var sub8_5_image = window.localStorage.getItem("sub8-5-image");
+if (sub8_5_image) {
+  subArr[7][4].style.setProperty("--after-bg-image", `url(${sub8_5_image})`);
+  subArr[7][4].style.backgroundColor = "transparent";
+}
+
+var sub8_6_image = window.localStorage.getItem("sub8-6-image");
+if (sub8_6_image) {
+  subArr[7][5].style.setProperty("--after-bg-image", `url(${sub8_6_image})`);
+  subArr[7][5].style.backgroundColor = "transparent";
+}
+
+var sub8_7_image = window.localStorage.getItem("sub8-7-image");
+if (sub8_7_image) {
+  subArr[7][6].style.setProperty("--after-bg-image", `url(${sub8_7_image})`);
+  subArr[7][6].style.backgroundColor = "transparent";
+}
+
+var sub8_8_image = window.localStorage.getItem("sub8-8-image");
+if (sub8_8_image) {
+  subArr[7][7].style.setProperty("--after-bg-image", `url(${sub8_8_image})`);
+  subArr[7][7].style.backgroundColor = "transparent";
+}

@@ -250,7 +250,7 @@ window.onload = function () {
     centerSuccessCount += 1;
   }
 
-  window.localStorage.setItem("badgeUnlockCount", centerSuccessCount);
+  window.localStorage.setItem("badgeUnlockCount", centerSuccessCount); // 백에 보내기
 };
 
 // 클릭한 목표 goal-input에 띄우도록 localStorage에 저장
@@ -376,6 +376,16 @@ subGoals[0].addEventListener("click", () => {
   window.localStorage.setItem("sub6success", sub1_6_success);
   window.localStorage.setItem("sub7success", sub1_7_success);
   window.localStorage.setItem("sub8success", sub1_8_success);
+
+  // 이미지 저장
+  window.localStorage.setItem("sub1image", sub1_1_image);
+  window.localStorage.setItem("sub2image", sub1_2_image);
+  window.localStorage.setItem("sub3image", sub1_3_image);
+  window.localStorage.setItem("sub4image", sub1_4_image);
+  window.localStorage.setItem("sub5image", sub1_5_image);
+  window.localStorage.setItem("sub6image", sub1_6_image);
+  window.localStorage.setItem("sub7image", sub1_7_image);
+  window.localStorage.setItem("sub8image", sub1_8_image);
 });
 
 subGoals[1].addEventListener("click", () => {
@@ -401,6 +411,15 @@ subGoals[1].addEventListener("click", () => {
   window.localStorage.setItem("sub6success", sub2_6_success);
   window.localStorage.setItem("sub7success", sub2_7_success);
   window.localStorage.setItem("sub8success", sub2_8_success);
+
+  window.localStorage.setItem("sub1image", sub2_1_image);
+  window.localStorage.setItem("sub2image", sub2_2_image);
+  window.localStorage.setItem("sub3image", sub2_3_image);
+  window.localStorage.setItem("sub4image", sub2_4_image);
+  window.localStorage.setItem("sub5image", sub2_5_image);
+  window.localStorage.setItem("sub6image", sub2_6_image);
+  window.localStorage.setItem("sub7image", sub2_7_image);
+  window.localStorage.setItem("sub8image", sub2_8_image);
 });
 
 subGoals[2].addEventListener("click", () => {
@@ -426,6 +445,15 @@ subGoals[2].addEventListener("click", () => {
   window.localStorage.setItem("sub6success", sub3_6_success);
   window.localStorage.setItem("sub7success", sub3_7_success);
   window.localStorage.setItem("sub8success", sub3_8_success);
+
+  window.localStorage.setItem("sub1image", sub3_1_image);
+  window.localStorage.setItem("sub2image", sub3_2_image);
+  window.localStorage.setItem("sub3image", sub3_3_image);
+  window.localStorage.setItem("sub4image", sub3_4_image);
+  window.localStorage.setItem("sub5image", sub3_5_image);
+  window.localStorage.setItem("sub6image", sub3_6_image);
+  window.localStorage.setItem("sub7image", sub3_7_image);
+  window.localStorage.setItem("sub8image", sub3_8_image);
 });
 
 subGoals[3].addEventListener("click", () => {
@@ -451,6 +479,15 @@ subGoals[3].addEventListener("click", () => {
   window.localStorage.setItem("sub6success", sub4_6_success);
   window.localStorage.setItem("sub7success", sub4_7_success);
   window.localStorage.setItem("sub8success", sub4_8_success);
+
+  window.localStorage.setItem("sub1image", sub4_1_image);
+  window.localStorage.setItem("sub2image", sub4_2_image);
+  window.localStorage.setItem("sub3image", sub4_3_image);
+  window.localStorage.setItem("sub4image", sub4_4_image);
+  window.localStorage.setItem("sub5image", sub4_5_image);
+  window.localStorage.setItem("sub6image", sub4_6_image);
+  window.localStorage.setItem("sub7image", sub4_7_image);
+  window.localStorage.setItem("sub8image", sub4_8_image);
 });
 
 subGoals[4].addEventListener("click", () => {
@@ -476,6 +513,15 @@ subGoals[4].addEventListener("click", () => {
   window.localStorage.setItem("sub6success", sub5_6_success);
   window.localStorage.setItem("sub7success", sub5_7_success);
   window.localStorage.setItem("sub8success", sub5_8_success);
+
+  window.localStorage.setItem("sub1image", sub5_1_image);
+  window.localStorage.setItem("sub2image", sub5_2_image);
+  window.localStorage.setItem("sub3image", sub5_3_image);
+  window.localStorage.setItem("sub4image", sub5_4_image);
+  window.localStorage.setItem("sub5image", sub5_5_image);
+  window.localStorage.setItem("sub6image", sub5_6_image);
+  window.localStorage.setItem("sub7image", sub5_7_image);
+  window.localStorage.setItem("sub8image", sub5_8_image);
 });
 
 subGoals[5].addEventListener("click", () => {
@@ -501,6 +547,15 @@ subGoals[5].addEventListener("click", () => {
   window.localStorage.setItem("sub6success", sub6_6_success);
   window.localStorage.setItem("sub7success", sub6_7_success);
   window.localStorage.setItem("sub8success", sub6_8_success);
+
+  window.localStorage.setItem("sub1image", sub6_1_image);
+  window.localStorage.setItem("sub2image", sub6_2_image);
+  window.localStorage.setItem("sub3image", sub6_3_image);
+  window.localStorage.setItem("sub4image", sub6_4_image);
+  window.localStorage.setItem("sub5image", sub6_5_image);
+  window.localStorage.setItem("sub6image", sub6_6_image);
+  window.localStorage.setItem("sub7image", sub6_7_image);
+  window.localStorage.setItem("sub8image", sub6_8_image);
 });
 
 subGoals[6].addEventListener("click", () => {
@@ -526,6 +581,15 @@ subGoals[6].addEventListener("click", () => {
   window.localStorage.setItem("sub6success", sub7_6_success);
   window.localStorage.setItem("sub7success", sub7_7_success);
   window.localStorage.setItem("sub8success", sub7_8_success);
+
+  window.localStorage.setItem("sub1image", sub7_1_image);
+  window.localStorage.setItem("sub2image", sub7_2_image);
+  window.localStorage.setItem("sub3image", sub7_3_image);
+  window.localStorage.setItem("sub4image", sub7_4_image);
+  window.localStorage.setItem("sub5image", sub7_5_image);
+  window.localStorage.setItem("sub6image", sub7_6_image);
+  window.localStorage.setItem("sub7image", sub7_7_image);
+  window.localStorage.setItem("sub8image", sub7_8_image);
 });
 
 subGoals[7].addEventListener("click", () => {
@@ -551,4 +615,13 @@ subGoals[7].addEventListener("click", () => {
   window.localStorage.setItem("sub6success", sub8_6_success);
   window.localStorage.setItem("sub7success", sub8_7_success);
   window.localStorage.setItem("sub8success", sub8_8_success);
+
+  window.localStorage.setItem("sub1image", sub8_1_image);
+  window.localStorage.setItem("sub2image", sub8_2_image);
+  window.localStorage.setItem("sub3image", sub8_3_image);
+  window.localStorage.setItem("sub4image", sub8_4_image);
+  window.localStorage.setItem("sub5image", sub8_5_image);
+  window.localStorage.setItem("sub6image", sub8_6_image);
+  window.localStorage.setItem("sub7image", sub8_7_image);
+  window.localStorage.setItem("sub8image", sub8_8_image);
 });
