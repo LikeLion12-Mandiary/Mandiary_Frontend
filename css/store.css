@@ -132,7 +132,8 @@
 }
 
 .color-line > button,
-.badge-line > button {
+.badge-line > button,
+.select-badge-line > button {
   border: 0;
   background-color: transparent;
   padding: 0;

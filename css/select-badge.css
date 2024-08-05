@@ -45,22 +45,45 @@
   align-items: center;
 }
 
-.badge-img-line {
+.slide-container2 {
   width: 503px;
   height: 147px;
+  display: flex;
+  gap: 51px;
+  overflow: hidden;
 }
 
-#badge-6,
+.badge-img-line {
+  width: 100%;
+  gap: 29px;
+  transition: transform 0.7s;
+}
+
+#badge-1,
 #badge-2,
-#badge-3 {
+#badge-3,
+#badge-4,
+#badge-5,
+#badge-6,
+#badge-7,
+#badge-8,
+#badge-9 {
   cursor: pointer;
 }
 
-.select-container .goal-center {
-  background-color: white;
-  background-image: url(/img/badge_unlock/1.png);
-  background-size: 205px 192px;
-  background-position: -6px -2px;
+.goal-center.completed {
+  background-color: transparent;
+}
+
+/* 배경 이미지 */
+.goals > .goal-center::after {
+  position: absolute;
+  background-image: var(--after-bg-image);
+  background-size: var(--size);
+  background-position: var(--position);
+  top: 0px;
+  left: 0px;
+  opacity: 1;
 }
 
 .alarm {
