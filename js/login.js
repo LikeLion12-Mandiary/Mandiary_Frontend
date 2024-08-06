@@ -49,6 +49,14 @@ document.getElementById("login-btn").addEventListener("click", function() {
         })
         .then((response) => {
             if (!response.ok) {
+                var error = document.getElementById("login-error");
+                var emailError = document.getElementById("input-email");
+                var passwordError = document.getElementById("input-password");
+
+                error.style.display = "block";
+                emailError.style.border = "1px solid #fc522f";
+                passwordError.style.border = "1px solid #fc522f";
+
                 throw new Error("Login failed");
             }
             return response.json();
