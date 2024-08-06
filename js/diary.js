@@ -3,6 +3,7 @@ const accessToken = getCookie("accessToken");
 let sortedEntriesByYear;
 const now = new Date();
 const currentYear = now.getFullYear(); // 현재 연도
+let firstYearInEntries;
 
 function getCookie(name) {
     var nameEQ = name + "=";
@@ -22,188 +23,6 @@ function getCookie(name) {
 function deleteCookie(name) {
     document.cookie = name + "=; Expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;";
 }
-
-const diaryEntries = [{
-        id: 1,
-        user: {
-            id: 1,
-            username: "lion",
-            email: "tjgustjr16@naver.com",
-        },
-        content: "멋사",
-        image: null,
-        created_at: "2024-08-01T04:53:40.735225",
-        updated_at: "2024-08-01T04:53:40.735225",
-    },
-    {
-        id: 2,
-        user: {
-            id: 2,
-            username: "tiger",
-            email: "tiger@example.com",
-        },
-        content: "강의",
-        image: null,
-        created_at: "2024-08-02T10:20:30.123456",
-        updated_at: "2024-08-02T10:20:30.123456",
-    },
-    {
-        id: 3,
-        user: {
-            id: 3,
-            username: "eagle",
-            email: "eagle@example.com",
-        },
-        content: "코딩",
-        image: null,
-        created_at: "2024-08-03T14:15:20.654321",
-        updated_at: "2024-08-03T14:15:20.654321",
-    },
-    {
-        id: 4,
-        user: {
-            id: 4,
-            username: "shark",
-            email: "shark@example.com",
-        },
-        content: "프로젝트",
-        image: null,
-        created_at: "2024-08-04T09:10:10.123456",
-        updated_at: "2024-08-04T09:10:10.123456",
-    },
-    {
-        id: 5,
-        user: {
-            id: 5,
-            username: "wolf",
-            email: "wolf@example.com",
-        },
-        content: "팀미팅",
-        image: null,
-        created_at: "2024-07-25T16:30:45.123789",
-        updated_at: "2024-07-25T16:30:45.123789",
-    },
-    {
-        id: 6,
-        user: {
-            id: 6,
-            username: "fox",
-            email: "fox@example.com",
-        },
-        content: "개발",
-        image: null,
-        created_at: "2024-07-26T11:15:35.987654",
-        updated_at: "2024-07-26T11:15:35.987654",
-    },
-    {
-        id: 7,
-        user: {
-            id: 7,
-            username: "bear",
-            email: "bear@example.com",
-        },
-        content: "리서치",
-        image: null,
-        created_at: "2024-07-27T08:45:25.456123",
-        updated_at: "2024-07-27T08:45:25.456123",
-    },
-    {
-        id: 8,
-        user: {
-            id: 8,
-            username: "deer",
-            email: "deer@example.com",
-        },
-        content: "설계",
-        image: null,
-        created_at: "2024-07-28T14:05:15.321789",
-        updated_at: "2024-07-28T14:05:15.321789",
-    },
-    {
-        id: 9,
-        user: {
-            id: 9,
-            username: "hawk",
-            email: "hawk@example.com",
-        },
-        content: "테스트",
-        image: null,
-        created_at: "2023-12-15T12:30:45.987654",
-        updated_at: "2023-12-15T12:30:45.987654",
-    },
-    {
-        id: 10,
-        user: {
-            id: 10,
-            username: "rabbit",
-            email: "rabbit@example.com",
-        },
-        content: "리팩토링",
-        image: null,
-        created_at: "2023-11-20T09:20:30.123456",
-        updated_at: "2023-11-20T09:20:30.123456",
-    },
-    {
-        id: 11,
-        user: {
-            id: 11,
-            username: "frog",
-            email: "frog@example.com",
-        },
-        content: "디버깅",
-        image: null,
-        created_at: "2023-10-05T14:10:20.654321",
-        updated_at: "2023-10-05T14:10:20.654321",
-    },
-    {
-        id: 12,
-        user: {
-            id: 12,
-            username: "elephant",
-            email: "elephant@example.com",
-        },
-        content: "유지보수",
-        image: null,
-        created_at: "2023-09-12T16:45:10.456123",
-        updated_at: "2023-09-12T16:45:10.456123",
-    },
-    {
-        id: 13,
-        user: {
-            id: 13,
-            username: "giraffe",
-            email: "giraffe@example.com",
-        },
-        content: "기획",
-        image: null,
-        created_at: "2023-08-22T11:25:35.321789",
-        updated_at: "2023-08-22T11:25:35.321789",
-    },
-    {
-        id: 14,
-        user: {
-            id: 14,
-            username: "zebra",
-            email: "zebra@example.com",
-        },
-        content: "디자인",
-        image: null,
-        created_at: "2023-07-30T08:15:40.123456",
-        updated_at: "2023-07-30T08:15:40.123456",
-    },
-    {
-        id: 15,
-        user: {
-            id: 15,
-            username: "panda",
-            email: "panda@example.com",
-        },
-        content: "테스트 케이스 작성",
-        image: null,
-        created_at: "2023-06-18T10:05:30.987654",
-        updated_at: "2023-06-18T10:05:30.987654",
-    },
-];
 
 document.addEventListener("DOMContentLoaded", function() {
     // accessToken 없으면 login 화면으로
@@ -233,9 +52,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return response.json();
         })
         .then((data) => {
-            // 다이어리 배열에 저장
-            console.log(data);
-
             // 년도별로 나누기 위한 객체 초기화
             const entriesByYear = {};
 
@@ -277,9 +93,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         }, {});
                     return acc;
                 }, {});
-
-            // 결과 출력
-            console.log(sortedEntriesByYear);
         })
         .then(() => {
             loadDiaryTitle(currentYear);
@@ -292,40 +105,64 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // 다이어리 타이틀 생성
 function loadDiaryTitle(specificYear) {
-    // 특정 년도의 데이터 필터링
-    const entriesForSpecificYear = sortedEntriesByYear[specificYear] || {};
+    // 가입한 년도
+    fetch(API_SERVER_DOMAIN + "/users/profile/", {
+            method: "get",
+            headers: {
+                Authorization: "Bearer " + accessToken,
+            },
+        })
+        .then((response) => {
+            // 401 Unauthorized 에러가 발생한 경우
+            if (response.status === 401) {
+                const cookieName = "accessToken";
+                deleteCookie(cookieName);
+                window.location.href = "./login.html";
+                return;
+            }
+            if (!response.ok) {
+                throw new Error("Login failed");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            firstYearInEntries = data.created_at.substring(0, 4);
+        })
+        .then(() => {
+            // 특정 년도의 데이터 필터링
+            const entriesForSpecificYear = sortedEntriesByYear[specificYear] || {};
 
-    // sortedEntriesByYear의 첫 번째 연도 찾기
-    const years = Object.keys(sortedEntriesByYear).map(Number); // 연도 키를 숫자로 변환
-    const firstYearInEntries = Math.min(...years); // 가장 작은 연도 (첫 번째 연도)
+            let totalEntriesCount = 0;
 
-    let totalEntriesCount = 0;
+            Object.values(entriesForSpecificYear).forEach((entries) => {
+                totalEntriesCount += entries.length; // 각 월의 다이어리 개수를 합산
+            });
 
-    Object.values(entriesForSpecificYear).forEach((entries) => {
-        totalEntriesCount += entries.length; // 각 월의 다이어리 개수를 합산
-    });
+            const diaryTitleWrapper = document.getElementById("diary-title-wrapper");
 
-    const diaryTitleWrapper = document.getElementById("diary-title-wrapper");
+            diaryTitleWrapper.innerHTML = `
+                <div class="diary-title">
+                    <img src="../img/left-btn.png" id="diary-left-btn" alt="" />
+                    <p>${specificYear} 다이어리</p>
+                <img src="../img/right-btn.png" id="diary-right-btn" alt="" />
+                </div>
+                 <p class="diary-count">총 ${totalEntriesCount}개의 일기</p>`;
 
-    diaryTitleWrapper.innerHTML = `
-     <div class="diary-title">
-         <img src="../img/left-btn.png" id="diary-left-btn" alt="" />
-         <p>${specificYear} 다이어리</p>
-         <img src="../img/right-btn.png" id="diary-right-btn" alt="" />
-     </div>
-     <p class="diary-count">총 ${totalEntriesCount}개의 일기</p>`;
+            if (specificYear == currentYear) {
+                const rightBtn = document.getElementById("diary-right-btn");
+                rightBtn.style.visibility = "hidden";
+            }
 
-    if (specificYear === currentYear) {
-        const rightBtn = document.getElementById("diary-right-btn");
-        rightBtn.style.visibility = "hidden";
-    }
-
-    if (specificYear === firstYearInEntries) {
-        const leftBtn = document.getElementById("diary-left-btn");
-        if (leftBtn) {
-            leftBtn.style.visibility = "hidden";
-        }
-    }
+            if (specificYear == firstYearInEntries) {
+                const leftBtn = document.getElementById("diary-left-btn");
+                if (leftBtn) {
+                    leftBtn.style.visibility = "hidden";
+                }
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
 }
 
 // 현재 년도 다이어리 생성
@@ -368,10 +205,8 @@ function loadDiaryContent(specificYear) {
 
         if (specificYear === currentYear && month === currentMonth) {
             diaryMonthly.innerHTML = `
-          <p>${month}월</p>
-          <a href="./diary-write.html">
-            <img src="../img/diary-plus.png" alt="" />
-          </a>`;
+              <p>${month}월</p>
+                <img src="../img/diary-plus.png" alt="" id="go-diary-write-btn" />`;
         } else {
             diaryMonthly.innerHTML = `<p>${month}월</p>`;
         }
@@ -440,6 +275,37 @@ function loadDiaryContent(specificYear) {
                 diaryDailyWrapper.appendChild(diaryDaily);
             });
     });
+
+    document
+        .getElementById("go-diary-write-btn")
+        .addEventListener("click", function() {
+            // 오늘 날짜 구하기
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = today.getMonth() + 1; // 월은 0부터 시작하므로 1을 더함
+            const day = today.getDate();
+
+            // 오늘 날짜가 있는지 확인하는 함수
+            function isTodayInData(data) {
+                if (data[year] && data[year][month]) {
+                    return data[year][month].some((entry) => {
+                        const entryDate = new Date(entry.created_at);
+                        return (
+                            entryDate.getFullYear() === year &&
+                            entryDate.getMonth() + 1 === month &&
+                            entryDate.getDate() === day
+                        );
+                    });
+                }
+                return false;
+            }
+
+            if (isTodayInData(sortedEntriesByYear)) {
+                alert("오늘은 이미 다이어리를 작성하였습니다.");
+            } else {
+                window.location.href = "./diary-write.html";
+            }
+        });
 
     document.querySelectorAll(".diary-daily").forEach(function(element) {
         element.addEventListener("click", function() {

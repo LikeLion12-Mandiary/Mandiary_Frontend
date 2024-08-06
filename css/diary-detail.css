@@ -72,10 +72,11 @@
 }
 
 .diray-detail-img img {
-    width: 100%;
+    max-width: 100%;
     height: 14.375rem;
     border-radius: 0.625rem;
     object-fit: contain;
+    margin: 0 auto;
 }
 
 .diary-detail-content {

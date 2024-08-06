@@ -47,6 +47,8 @@
 .diary-monthly>img {
     width: 1.625rem;
     height: 1.625rem;
+    margin-left: 69rem;
+    cursor: pointer;
 }
 
 .diary-content-wrapper hr {
@@ -88,7 +90,8 @@
 .daily-img {
     border-radius: 0.625rem;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
+    height: 15.1875rem;
     object-fit: cover;
 }
 
