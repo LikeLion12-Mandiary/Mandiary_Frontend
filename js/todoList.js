@@ -44,7 +44,7 @@ function fetchUserInfo() {
       if (response.status === 401) {
         const cookieName = "accessToken";
         deleteCookie(cookieName);
-        window.location.href = "./login.html";
+        window.location.href = "/login.html";
         return;
       }
       if (!response.ok) {
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // if (response.status === 401) {
             //   const cookieName = "accessToken";
             //   deleteCookie(cookieName);
-            //   window.location.href = "./login.html";
+            //   window.location.href = "/login.html";
             //   return;
             // }
             if (!response.ok) {
@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.status === 401) {
           const cookieName = "accessToken";
           deleteCookie(cookieName);
-          window.location.href = "./login.html";
+          window.location.href = "/login.html";
           return;
         }
         if (!response.ok) {
@@ -434,7 +434,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.status === 401) {
               const cookieName = "accessToken";
               deleteCookie(cookieName);
-              window.location.href = "./login.html";
+              window.location.href = "/login.html";
               return;
             }
             if (!response.ok) {
