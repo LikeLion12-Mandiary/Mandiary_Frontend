@@ -1,4 +1,4 @@
-let API_SERVER_DOMAIN = "http://3.38.46.212";
+let API_SERVER_DOMAIN = "https://mandiary.duckdns.org";
 const accessToken = getCookie("accessToken");
 
 // 쿠키 관련 함수들
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 플러스아이콘(#todo-add-icon) 클릭했을 때 입력창 토글
   addIcon.addEventListener("click", function () {
     console.log("플러스 아이콘 클릭");
-    //addingItem = !addingItem;
+    editIcon.src = "/img/big-edit-btn.png";
 
     if (!addingItem) {
       //입력창 생성
@@ -197,6 +197,55 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("시간과 내용을 모두 입력해주세요.");
           return;
         }
+
+        console.log("data:", { date: todayDate, time: time, content: content });
+        // 입력한 투두리스트 서버에 전송 (time, content)
+        fetch(API_SERVER_DOMAIN + `/todolists/?date=`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + accessToken,
+          },
+          body: JSON.stringify({
+            date: todayDate,
+            time: time,
+            content: content,
+          }),
+        })
+          .then((response) => {
+            // 401 Unauthorized 에러가 발생한 경우
+            // if (response.status === 401) {
+            //   const cookieName = "accessToken";
+            //   deleteCookie(cookieName);
+            //   window.location.href = "./login.html";
+            //   return;
+            // }
+            if (!response.ok) {
+              console.error(`Error: ${response.status} ${response.statusText}`);
+              throw new Error("Failed to fetch");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Server response:", data);
+            console.log(data.id);
+            if (data.id) {
+              //addTodoToList(data.time, data.content, data.id);
+              listItemDiv.setAttribute("data-id", data.id);
+
+              addTimeInput.value = "";
+              addContInput.value = "";
+              addItemDiv.remove(); // 입력창 제거
+              addingItem = false;
+              addIcon.src = "/img/plus-btn.png";
+              loadTodoLists();
+            } else {
+              console.log("투두리스트를 추가에 실패했습니다: " + data.message);
+            }
+          })
+          .catch((error) => {
+            console.error("Error adding todo-list:", error);
+          });
 
         const listItemDiv = document.createElement("div");
         addIcon.src = "/img/plus-btn.png";
@@ -235,64 +284,16 @@ document.addEventListener("DOMContentLoaded", function () {
           document.querySelector(".todo-mid").appendChild(listItemDiv);
         }
         console.log("data:", { date: todayDate, time: time, content: content });
-        // 입력한 투두리스트 서버에 전송 (time, content)
-        const userId = fetchUserInfo();
-        fetch(API_SERVER_DOMAIN + `/todolists/?date=`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + accessToken,
-          },
-          body: JSON.stringify({
-            date: todayDate,
-            time: time,
-            content: content,
-          }),
-        })
-          .then((response) => {
-            // 401 Unauthorized 에러가 발생한 경우
-            if (response.status === 401) {
-              const cookieName = "accessToken";
-              deleteCookie(cookieName);
-              window.location.href = "./login.html";
-              return;
-            }
-            if (!response.ok) {
-              console.error(`Error: ${response.status} ${response.statusText}`);
-              throw new Error("Failed to fetch");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log("Server response:", data);
-            console.log(data.id);
-            if (data.id) {
-              //addTodoToList(data.time, data.content, data.id);
-              listItemDiv.setAttribute("data-id", data.id);
-
-              addTimeInput.value = "";
-              addContInput.value = "";
-              addItemDiv.remove(); // 입력창 제거
-              addingItem = false;
-              addIcon.src = "/img/plus-btn.png";
-              loadTodoLists();
-            } else {
-              console.log("투두리스트를 추가에 실패했습니다: " + data.message);
-            }
-          })
-          .catch((error) => {
-            console.error("Error adding todo-list:", error);
-          });
       });
 
       addingItem = true;
       addIcon.src = "/img/full-plus-btn.png";
     } else {
-      // // 입력창이 이미 보이는 경우 숨기기
-      // const addItemDiv = document.querySelector(".add-item");
-      // if (addItemDiv) {
-      //   addItemDiv.remove();
-      // }
+      // 입력창이 이미 보이는 경우 숨기기
+      const addItemDiv = document.querySelector(".add-item");
+      if (addItemDiv) {
+        addItemDiv.remove();
+      }
       addingItem = false;
       addIcon.src = "/img/plus-btn.png";
     }
@@ -316,6 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function loadTodoLists() {
     const todayDate = getTodayDate();
     //console.log(`Fetching todo list for date: ${todayDate}`);
+    todoMid.innerHTML = "";
 
     // 투두 목록
     fetch(API_SERVER_DOMAIN + `/todolists/date/${todayDate}/`, {
@@ -338,11 +340,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.json();
       })
       .then((data) => {
-        console.log("loadTodoLists: ", data);
-        // todoMid.innerHTML = ""; //목록 비우기
-        console.log("forEach", data);
+        console.log(data);
         data.forEach((item) => {
-          addTodoToList(item.time, item.content);
+          let timeData = item.time;
+          timeData = timeData.substr(0, 5);
+          addTodoToList(timeData, item.content, item.id);
         });
       })
       .catch((error) => {
@@ -351,10 +353,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // 투두리스트를 목록에 추가
-  function addTodoToList(time, content) {
-    console.log(`todo: ${time} / ${content}`);
+  function addTodoToList(time, content, id) {
+    //console.log(`todo: ${time} / ${content}`);
     const listItemDiv = document.createElement("div");
     listItemDiv.className = "list-item";
+
+    listItemDiv.setAttribute("data-id", id);
+
     listItemDiv.innerHTML = `
     <img class="todo-check" src="/img/circle.png" />
     <div class="todo-time">${time}</div>
@@ -410,7 +415,8 @@ document.addEventListener("DOMContentLoaded", function () {
   todoMid.addEventListener("click", function (event) {
     if (event.target.classList.contains("todo-del")) {
       const listItem = event.target.closest(".list-item");
-      const id = listItem.dataset.id;
+      const id = listItem.getAttribute("data-id");
+      console.log(id);
 
       if (confirm("삭제하시겠습니까?")) {
         fetch(API_SERVER_DOMAIN + `/todolists/delete/${id}/`, {
@@ -421,6 +427,10 @@ document.addEventListener("DOMContentLoaded", function () {
         })
           .then((response) => {
             // 401 Unauthorized 에러가 발생한 경우
+            // 204 No Content means successful deletion but no body content
+            if (response.status === 204) {
+              return { success: true };
+            }
             if (response.status === 401) {
               const cookieName = "accessToken";
               deleteCookie(cookieName);
