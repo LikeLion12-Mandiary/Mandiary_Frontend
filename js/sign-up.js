@@ -18,7 +18,7 @@ function getCookie(name) {
 
 document.addEventListener("DOMContentLoaded", function() {
     if (accessToken) {
-        window.location.href = "./home.html";
+        window.location.href = "/html/home.html";
     }
 });
 
@@ -152,7 +152,7 @@ document.getElementById("sign-up-btn").addEventListener("click", function() {
                 if (!response.ok) {
                     throw new Error("Login failed");
                 }
-                window.location.href = "./login.html";
+                window.location.href = "/html/login.html";
             })
             .catch((error) => {
                 console.log(error);

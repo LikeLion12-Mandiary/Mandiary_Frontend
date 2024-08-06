@@ -28,7 +28,7 @@ function setCookie(name, value, days) {
 
 document.addEventListener("DOMContentLoaded", function() {
     if (accessToken) {
-        window.location.href = "./home.html";
+        window.location.href = "/html/home.html";
     }
 });
 

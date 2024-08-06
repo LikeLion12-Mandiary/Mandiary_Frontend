@@ -18,7 +18,7 @@ function getCookie(name) {
 
 document.addEventListener("DOMContentLoaded", function() {
     if (accessToken) {
-        window.location.href = "./home.html";
+        window.location.href = "/html/home.html";
     }
 });
 
@@ -144,7 +144,7 @@ document
                     if (!response.ok) {
                         throw new Error("Login failed");
                     }
-                    window.location.href = "./login.html";
+                    window.location.href = "/html/login.html";
                 })
                 .catch((error) => {
                     document.getElementById("input-code").style.border =

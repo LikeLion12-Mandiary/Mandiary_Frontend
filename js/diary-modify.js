@@ -25,7 +25,7 @@ function deleteCookie(name) {
 document.addEventListener("DOMContentLoaded", function() {
     // accessToken 없으면 login 화면으로
     if (!accessToken) {
-        window.location.href = "./login.html";
+        window.location.href = "/html/login.html";
         return;
     }
 
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (response.status === 401) {
                 const cookieName = "accessToken";
                 deleteCookie(cookieName);
-                window.location.href = "./login.html";
+                window.location.href = "/html/login.html";
                 return;
             }
             if (!response.ok) {
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 dirayWriteImgWrapper.innerHTML = `
                 <div class="diray-write-img" >
                     <img src="${data.image1}" alt="" class="write-img" />
-                    <img src="../img/img-delete.png" alt="" class="write-img-delete" onclick="removeImage(this)" />
+                    <img src="/img/img-delete.png" alt="" class="write-img-delete" onclick="removeImage(this)" />
                 </div>
                 `;
                 diaryTextarea.value = `${data.content}`;
@@ -78,16 +78,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 imageFiles.push(data.image2);
 
                 document.getElementById("img-plus-input").disabled = true;
-                document.getElementById("img-plus-btn").src = "../img/img-plus.png";
+                document.getElementById("img-plus-btn").src = "/img/img-plus.png";
 
                 dirayWriteImgWrapper.innerHTML = `
                 <div class="diray-write-img" >
                     <img src="${data.image1}" alt="" class="write-img" />
-                    <img src="../img/img-delete.png" alt="" class="write-img-delete" onclick="removeImage(this)" />
+                    <img src="/img/img-delete.png" alt="" class="write-img-delete" onclick="removeImage(this)" />
                 </div>
                 <div class="diray-write-img" >
                     <img src="${data.image2}" alt="" class="write-img" />
-                    <img src="../img/img-delete.png" alt="" class="write-img-delete" onclick="removeImage(this)" />
+                    <img src="/img/img-delete.png" alt="" class="write-img-delete" onclick="removeImage(this)" />
                 </div>
                 `;
                 diaryTextarea.value = `${data.content}`;
@@ -120,7 +120,7 @@ function loadFile(input) {
 
     dirayWriteImg.innerHTML = `
     <img src="${newImageSrc}" alt="" class="write-img" />
-    <img src="../img/img-delete.png" alt="" class="write-img-delete" onclick="removeImage(this)" />
+    <img src="/img/img-delete.png" alt="" class="write-img-delete" onclick="removeImage(this)" />
     `;
 
     //이미지를 image-show div에 추가
@@ -133,7 +133,7 @@ function loadFile(input) {
     // 최대 2개의 이미지만 추가 가능
     if (currentImageCount >= 2) {
         document.getElementById("img-plus-input").disabled = true;
-        document.getElementById("img-plus-btn").src = "../img/img-plus.png";
+        document.getElementById("img-plus-btn").src = "/img/img-plus.png";
     }
 
     imageFiles.push(file);
@@ -170,7 +170,7 @@ function removeImage(element) {
     // 2개 이하 체크
     if (currentImageCount < 2) {
         document.getElementById("img-plus-input").disabled = false;
-        document.getElementById("img-plus-btn").src = "../img/img-plus-active.png";
+        document.getElementById("img-plus-btn").src = "/img/img-plus-active.png";
     }
 }
 
@@ -219,11 +219,11 @@ document
                 if (response.status === 401) {
                     const cookieName = "accessToken";
                     deleteCookie(cookieName);
-                    window.location.href = "./login.html";
+                    window.location.href = "/html/login.html";
                     return;
                 }
 
-                window.location.href = "./diary-detail.html";
+                window.location.href = "/html/diary-detail.html";
             })
             .catch(() => {
                 console.error("Detailed Error:", error.message);
