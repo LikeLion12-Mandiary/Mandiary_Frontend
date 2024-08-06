@@ -1,75 +1,65 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mandiary</title>
-    <link rel="stylesheet" href="../css/style.css" />
-  </head>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
 
-  <body>
+<body>
     <div class="sign-up-container">
-      <a href="./login.html">
-        <img src="../img/login.png" alt="" />
-      </a>
-      <p class="sign-up-title">회원가입</p>
-      <p class="sign-up-category">
-        이름
-        <img src="../img/essential.png" alt="" />
-      </p>
-      <input type="text" placeholder="이름을 입력해주세요" id="input-name" />
-      <p class="sign-up-error" id="name-error">이름을 입력해주세요.</p>
-      <p class="sign-up-category">
-        이메일
-        <img src="../img/essential.png" alt="" />
-      </p>
-      <div class="email-wrapper">
-        <input
-          type="text"
-          placeholder="이메일 주소를 입력해주세요"
-          id="input-email"
-        />
-        <button class="email-double-check" id="email-double-check">
+        <a href="/html/login.html">
+            <img src="/img/login.png" alt="" />
+        </a>
+        <p class="sign-up-title">회원가입</p>
+        <p class="sign-up-category">
+            이름
+            <img src="/img/essential.png" alt="" />
+        </p>
+        <input type="text" placeholder="이름을 입력해주세요" id="input-name" />
+        <p class="sign-up-error" id="name-error">이름을 입력해주세요.</p>
+        <p class="sign-up-category">
+            이메일
+            <img src="/img/essential.png" alt="" />
+        </p>
+        <div class="email-wrapper">
+            <input type="text" placeholder="이메일 주소를 입력해주세요" id="input-email" />
+            <button class="email-double-check" id="email-double-check">
           중복확인
         </button>
-      </div>
-      <p class="sign-up-error" id="email-invalid">
-        유효한 이메일을 입력해주세요.
-      </p>
-      <p class="sign-up-error" id="email-duplication">
-        이미 가입된 이메일입니다.
-      </p>
-      <p id="email-confirm">사용 가능한 이메일입니다.</p>
-      <p class="sign-up-category">
-        비밀번호
-        <img src="../img/essential.png" alt="" />
-      </p>
-      <input
-        type="password"
-        placeholder="비밀번호를 입력해주세요"
-        id="input-password"
-      />
-      <p class="password-infor" id="password-valid">
-        (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)
-      </p>
-      <p class="sign-up-category">
-        비밀번호 확인
-        <img src="../img/essential.png" alt="" />
-      </p>
-      <input
-        type="password"
-        placeholder="비밀번호를 입력해주세요"
-        id="input-password-check"
-      />
-      <p class="sign-up-error" id="password-check-error">
-        비밀번호가 일치하지 않습니다.
-      </p>
-      <button class="sign-up-com-btn" id="sign-up-btn">완료</button>
-      <a href="./login.html">
-        <button class="sign-up-can-btn" id="sing-up-cancel-btn">취소</button>
-      </a>
+        </div>
+        <p class="sign-up-error" id="email-invalid">
+            유효한 이메일을 입력해주세요.
+        </p>
+        <p class="sign-up-error" id="email-duplication">
+            이미 가입된 이메일입니다.
+        </p>
+        <p id="email-confirm">사용 가능한 이메일입니다.</p>
+        <p class="sign-up-category">
+            비밀번호
+            <img src="/img/essential.png" alt="" />
+        </p>
+        <input type="password" placeholder="비밀번호를 입력해주세요" id="input-password" />
+        <p class="password-infor" id="password-valid">
+            (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자)
+        </p>
+        <p class="sign-up-category">
+            비밀번호 확인
+            <img src="/img/essential.png" alt="" />
+        </p>
+        <input type="password" placeholder="비밀번호를 입력해주세요" id="input-password-check" />
+        <p class="sign-up-error" id="password-check-error">
+            비밀번호가 일치하지 않습니다.
+        </p>
+        <button class="sign-up-com-btn" id="sign-up-btn">완료</button>
+        <a href="/html/login.html">
+            <button class="sign-up-can-btn" id="sing-up-cancel-btn">취소</button>
+        </a>
     </div>
 
-    <script src="../js/sign-up.js"></script>
-  </body>
+    <script src="/js/sign-up.js"></script>
+</body>
+
 </html>

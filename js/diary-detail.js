@@ -24,7 +24,7 @@ function deleteCookie(name) {
 document.addEventListener("DOMContentLoaded", function() {
     // accessToken 없으면 login 화면으로
     if (!accessToken) {
-        window.location.href = "./login.html";
+        window.location.href = "/html/login.html";
         return;
     }
 
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (response.status === 401) {
                 const cookieName = "accessToken";
                 deleteCookie(cookieName);
-                window.location.href = "./login.html";
+                window.location.href = "/html/login.html";
                 return;
             }
             if (!response.ok) {
@@ -60,8 +60,6 @@ document.addEventListener("DOMContentLoaded", function() {
             );
 
             if (!data.image1) {
-                // diaryDetailContent.innerHTML = `
-                //     <p style="white-space:pre;">${data.content}</p>`;
                 diaryDetailContent.innerHTML = `${data.content}`;
             } else if (!data.image2) {
                 dirayDetailImg.innerHTML = `
@@ -92,7 +90,7 @@ function formatDate(dateString) {
 const diaryModifyBtn = document.getElementById("diary-modify-btn");
 
 diaryModifyBtn.onclick = function() {
-    window.location.href = "./diary-modify.html";
+    window.location.href = "/html/diary-modify.html";
 };
 
 // 모달
@@ -105,12 +103,12 @@ const diaryDeleteCom = document.getElementById("diary-delete-com");
 
 openModalBtn.onclick = function() {
     modal.style.display = "block";
-    openModalBtn.src = "../img/diary-delete.png";
+    openModalBtn.src = "/img/diary-delete.png";
 };
 
 closeModalBtn.onclick = function() {
     modal.style.display = "none";
-    openModalBtn.src = "../img/diary-delete-active.png";
+    openModalBtn.src = "/img/diary-delete-active.png";
 };
 
 // 다이어리 삭제
@@ -126,13 +124,13 @@ diaryDeleteCom.onclick = function() {
             if (response.status === 401) {
                 const cookieName = "accessToken";
                 deleteCookie(cookieName);
-                window.location.href = "./login.html";
+                window.location.href = "/html/login.html";
                 return;
             }
             if (!response.ok) {
                 throw new Error("Login failed");
             }
-            window.location.href = "./diary.html";
+            window.location.href = "/html/diary.html";
         })
         .catch((error) => {
             console.error("Detailed Error:", error.message);
@@ -141,7 +139,7 @@ diaryDeleteCom.onclick = function() {
 
 window.onclick = function(event) {
     if (event.target == modal) {
-        openModalBtn.src = "../img/diary-delete-active.png";
+        openModalBtn.src = "/img/diary-delete-active.png";
         modal.style.display = "none";
     }
 };

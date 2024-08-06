@@ -27,7 +27,7 @@ function deleteCookie(name) {
 document.addEventListener("DOMContentLoaded", function() {
     // accessToken 없으면 login 화면으로
     if (!accessToken) {
-        window.location.href = "./login.html";
+        window.location.href = "/html/login.html";
         return;
     }
 
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (response.status === 401) {
                 const cookieName = "accessToken";
                 deleteCookie(cookieName);
-                window.location.href = "./login.html";
+                window.location.href = "/html/login.html";
                 return;
             }
             if (!response.ok) {
@@ -117,7 +117,7 @@ function loadDiaryTitle(specificYear) {
             if (response.status === 401) {
                 const cookieName = "accessToken";
                 deleteCookie(cookieName);
-                window.location.href = "./login.html";
+                window.location.href = "/html/login.html";
                 return;
             }
             if (!response.ok) {
@@ -142,9 +142,9 @@ function loadDiaryTitle(specificYear) {
 
             diaryTitleWrapper.innerHTML = `
                 <div class="diary-title">
-                    <img src="../img/left-btn.png" id="diary-left-btn" alt="" />
+                    <img src="/img/left-btn.png" id="diary-left-btn" alt="" />
                     <p>${specificYear} 다이어리</p>
-                <img src="../img/right-btn.png" id="diary-right-btn" alt="" />
+                <img src="/img/right-btn.png" id="diary-right-btn" alt="" />
                 </div>
                  <p class="diary-count">총 ${totalEntriesCount}개의 일기</p>`;
 
@@ -206,7 +206,7 @@ function loadDiaryContent(specificYear) {
         if (specificYear === currentYear && month === currentMonth) {
             diaryMonthly.innerHTML = `
               <p>${month}월</p>
-                <img src="../img/diary-plus.png" alt="" id="go-diary-write-btn" />`;
+                <img src="/img/diary-plus.png" alt="" id="go-diary-write-btn" />`;
         } else {
             diaryMonthly.innerHTML = `<p>${month}월</p>`;
         }
@@ -235,7 +235,7 @@ function loadDiaryContent(specificYear) {
                     const firstLine = entry.content.split("\n")[0];
 
                     diaryDaily.innerHTML = `
-                    <img src="../img/diary-background.png" alt="" class="diary-background" />
+                    <img src="/img/diary-background.png" alt="" class="diary-background" />
                       <div class="daily-content">
                         <p>${firstLine}</p>
                       </div>
@@ -245,7 +245,7 @@ function loadDiaryContent(specificYear) {
                     `;
                 } else if (!entry.image2) {
                     diaryDaily.innerHTML = `
-                    <img src="../img/diary-background.png" alt="" class="diary-background" />
+                    <img src="/img/diary-background.png" alt="" class="diary-background" />
                       <div class="daily-content">
                             <img src="${
                               entry.image1
@@ -257,7 +257,7 @@ function loadDiaryContent(specificYear) {
                     `;
                 } else {
                     diaryDaily.innerHTML = `
-                    <img src="../img/diary-background.png" alt="" class="diary-background" />
+                    <img src="/img/diary-background.png" alt="" class="diary-background" />
                       <div class="daily-content">
                             <img src="${
                               entry.image1
@@ -303,7 +303,7 @@ function loadDiaryContent(specificYear) {
             if (isTodayInData(sortedEntriesByYear)) {
                 alert("오늘은 이미 다이어리를 작성하였습니다.");
             } else {
-                window.location.href = "./diary-write.html";
+                window.location.href = "/html/diary-write.html";
             }
         });
 
@@ -313,7 +313,7 @@ function loadDiaryContent(specificYear) {
 
             sessionStorage.setItem("diaryId", key);
 
-            window.location.href = "./diary-detail.html";
+            window.location.href = "/html/diary-detail.html";
         });
     });
 }
