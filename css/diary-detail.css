@@ -84,11 +84,7 @@
     font-size: 1.5rem;
     white-space: pre-wrap;
     text-indent: 0;
-}
-
-.diary-detail-content p {
-    font-size: 1.5rem;
-    width: 38.5rem;
+    padding: 1rem;
 }
 
 .diary-delete-modal {
