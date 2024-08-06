@@ -1,4 +1,4 @@
-var API_SERVER_DOMAIN = "http://3.38.46.212";
+var API_SERVER_DOMAIN = "https://mandiary.duckdns.org";
 const accessToken = getCookie("accessToken");
 
 function getCookie(name) {
@@ -27,9 +27,9 @@ function setCookie(name, value, days) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    // if (accessToken) {
-    //     window.location.href = "./home.html";
-    // }
+    if (accessToken) {
+        window.location.href = "./home.html";
+    }
 });
 
 document.getElementById("login-btn").addEventListener("click", function() {
@@ -60,6 +60,8 @@ document.getElementById("login-btn").addEventListener("click", function() {
             window.location.replace("./home.html");
         })
         .catch(() => {
+            console.error("Detailed Error:", error.message);
+
             var error = document.getElementById("login-error");
             var emailError = document.getElementById("input-email");
             var passwordError = document.getElementById("input-password");
@@ -68,4 +70,11 @@ document.getElementById("login-btn").addEventListener("click", function() {
             emailError.style.border = "1px solid #fc522f";
             passwordError.style.border = "1px solid #fc522f";
         });
+});
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // 기본 동작 방지 (선택 사항)
+        document.getElementById("login-btn").click(); // 버튼 클릭 이벤트 트리거
+    }
 });

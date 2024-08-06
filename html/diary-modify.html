@@ -29,13 +29,16 @@
     <div class="diary-write-container">
         <p>오늘 하루는 어땠나요?</p>
         <div class="diary-write-etc">
-            <span id="diary-write-today"></span>
-            <div class="write-etc-img-wrapper">
-                <input type="file" accept="image*/" onchange="loadFile(this)" id="img-plus-input" />
-                <img src="../img/img-plus-active.png" alt="" id="img-plus-btn" />
+            <span id="diary-detail-date"></span>
+            <div class="modify-etc-img-wrapper">
+                <div style="position: relative">
+                    <input type="file" accept="image*/" onchange="loadFile(this)" id="img-plus-input" />
+                    <img src="../img/img-plus-active.png" alt="" id="img-plus-btn" />
+                </div>
+                <img src="../img/diary-write.png" alt="" />
             </div>
         </div>
-        <div class="diary-write-content-container" id="diary-write-content-container">
+        <div class="diary-write-content-container">
             <div class="diary-write-content-wrapper">
                 <div class="diray-write-img-wrapper" id="diray-write-img-wrapper"></div>
                 <div class="diary-write-content">
@@ -49,13 +52,13 @@
             확인
           </button>
             </a>
-            <a href="./diary.html">
+            <a href="./diary-detail.html">
                 <button class="diary-write-can-btn">취소</button>
             </a>
         </div>
     </div>
 
-    <script src="../js/diary-write.js"></script>
+    <script src="../js/diary-modify.js"></script>
     <script src="../js/header.js"></script>
 </body>
 

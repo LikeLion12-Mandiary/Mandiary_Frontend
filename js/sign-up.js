@@ -1,4 +1,4 @@
-var API_SERVER_DOMAIN = "http://3.38.46.212";
+var API_SERVER_DOMAIN = "https://mandiary.duckdns.org";
 const accessToken = getCookie("accessToken");
 
 function getCookie(name) {
@@ -62,6 +62,14 @@ document
                     "1px solid #fc522f";
             });
     });
+
+// 이메일 변경 감지
+document.getElementById("input-email").addEventListener("input", function() {
+    if (document.getElementById("email-double-check").disabled) {
+        document.getElementById("email-double-check").disabled = false;
+        document.getElementById("email-confirm").style.display = "none";
+    }
+});
 
 // 회원가입
 document.getElementById("sign-up-btn").addEventListener("click", function() {
@@ -150,5 +158,12 @@ document.getElementById("sign-up-btn").addEventListener("click", function() {
                 console.log(error);
                 console.error("Detailed Error:", error.message);
             });
+    }
+});
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // 기본 동작 방지 (선택 사항)
+        document.getElementById("sign-up-btn").click(); // 버튼 클릭 이벤트 트리거
     }
 });

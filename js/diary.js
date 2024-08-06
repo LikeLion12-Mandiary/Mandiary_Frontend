@@ -1,6 +1,8 @@
-var API_SERVER_DOMAIN = "http://3.38.46.212";
+var API_SERVER_DOMAIN = "https://mandiary.duckdns.org";
 const accessToken = getCookie("accessToken");
 let sortedEntriesByYear;
+const now = new Date();
+const currentYear = now.getFullYear(); // 현재 연도
 
 function getCookie(name) {
     var nameEQ = name + "=";
@@ -210,51 +212,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
-    // 년도별로 나누기 위한 객체 초기화
-    const entriesByYear = {};
-
-    // 배열을 순회하며 년도별로 분류
-    diaryEntries.forEach((entry) => {
-        const date = new Date(entry.created_at);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1; // 월은 0부터 시작하므로 1을 더함
-
-        if (!entriesByYear[year]) {
-            entriesByYear[year] = {};
-        }
-
-        if (!entriesByYear[year][month]) {
-            entriesByYear[year][month] = [];
-        }
-
-        entriesByYear[year][month].push(entry);
-    });
-
-    // 각 년도와 월의 데이터를 내림차순으로 정렬
-    Object.keys(entriesByYear).forEach((year) => {
-        Object.keys(entriesByYear[year]).forEach((month) => {
-            entriesByYear[year][month].sort(
-                (a, b) => new Date(b.created_at) - new Date(a.created_at)
-            );
-        });
-    });
-
-    // 년도를 내림차순으로 정렬
-    sortedEntriesByYear = Object.keys(entriesByYear)
-        .sort((a, b) => b - a)
-        .reduce((acc, year) => {
-            acc[year] = Object.keys(entriesByYear[year])
-                .sort((a, b) => b - a)
-                .reduce((accMonth, month) => {
-                    accMonth[month] = entriesByYear[year][month];
-                    return accMonth;
-                }, {});
-            return acc;
-        }, {});
-
-    // 결과 출력
-    console.log(sortedEntriesByYear);
-
     // 다이어리 전체 조회
     fetch(API_SERVER_DOMAIN + "/diarys/users_diarys/", {
             method: "get",
@@ -277,25 +234,71 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then((data) => {
             // 다이어리 배열에 저장
+            console.log(data);
+
+            // 년도별로 나누기 위한 객체 초기화
+            const entriesByYear = {};
+
+            // 배열을 순회하며 년도별로 분류
+            data.forEach((entry) => {
+                const date = new Date(entry.created_at);
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1; // 월은 0부터 시작하므로 1을 더함
+
+                if (!entriesByYear[year]) {
+                    entriesByYear[year] = {};
+                }
+
+                if (!entriesByYear[year][month]) {
+                    entriesByYear[year][month] = [];
+                }
+
+                entriesByYear[year][month].push(entry);
+            });
+
+            // 각 년도와 월의 데이터를 내림차순으로 정렬
+            Object.keys(entriesByYear).forEach((year) => {
+                Object.keys(entriesByYear[year]).forEach((month) => {
+                    entriesByYear[year][month].sort(
+                        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+                    );
+                });
+            });
+
+            // 년도를 내림차순으로 정렬
+            sortedEntriesByYear = Object.keys(entriesByYear)
+                .sort((a, b) => b - a)
+                .reduce((acc, year) => {
+                    acc[year] = Object.keys(entriesByYear[year])
+                        .sort((a, b) => b - a)
+                        .reduce((accMonth, month) => {
+                            accMonth[month] = entriesByYear[year][month];
+                            return accMonth;
+                        }, {});
+                    return acc;
+                }, {});
+
+            // 결과 출력
+            console.log(sortedEntriesByYear);
+        })
+        .then(() => {
+            loadDiaryTitle(currentYear);
+            loadDiaryContent(currentYear);
         })
         .catch((error) => {
             console.error("Error:", error);
         });
+});
 
+// 다이어리 타이틀 생성
+function loadDiaryTitle(specificYear) {
     // 특정 년도의 데이터 필터링
-    const specificYear = 2024; // 원하는 년도
     const entriesForSpecificYear = sortedEntriesByYear[specificYear] || {};
 
     // sortedEntriesByYear의 첫 번째 연도 찾기
     const years = Object.keys(sortedEntriesByYear).map(Number); // 연도 키를 숫자로 변환
     const firstYearInEntries = Math.min(...years); // 가장 작은 연도 (첫 번째 연도)
 
-    // 현재 날짜 객체 생성
-    const now = new Date();
-    const currentYear = now.getFullYear(); // 현재 연도
-    const currentMonth = now.getMonth() + 1; // 현재 월
-
-    // 다이어리 타이틀 생성
     let totalEntriesCount = 0;
 
     Object.values(entriesForSpecificYear).forEach((entries) => {
@@ -305,12 +308,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const diaryTitleWrapper = document.getElementById("diary-title-wrapper");
 
     diaryTitleWrapper.innerHTML = `
-    <div class="diary-title">
-        <img src="../img/left-btn.png" id="diary-left-btn" alt="" />
-        <p>${specificYear} 다이어리</p>
-        <img src="../img/right-btn.png" id="diary-right-btn" alt="" />
-    </div>
-    <p class="diary-count">총 ${totalEntriesCount}개의 일기</p>`;
+     <div class="diary-title">
+         <img src="../img/left-btn.png" id="diary-left-btn" alt="" />
+         <p>${specificYear} 다이어리</p>
+         <img src="../img/right-btn.png" id="diary-right-btn" alt="" />
+     </div>
+     <p class="diary-count">총 ${totalEntriesCount}개의 일기</p>`;
 
     if (specificYear === currentYear) {
         const rightBtn = document.getElementById("diary-right-btn");
@@ -323,8 +326,19 @@ document.addEventListener("DOMContentLoaded", function() {
             leftBtn.style.visibility = "hidden";
         }
     }
+}
 
-    // 현재 년도 다이어리 생성
+// 현재 년도 다이어리 생성
+function loadDiaryContent(specificYear) {
+    // 특정 년도의 데이터 필터링
+    const entriesForSpecificYear = sortedEntriesByYear[specificYear] || {};
+
+    // sortedEntriesByYear의 첫 번째 연도 찾기
+    const years = Object.keys(sortedEntriesByYear).map(Number); // 연도 키를 숫자로 변환
+    const firstYearInEntries = Math.min(...years); // 가장 작은 연도 (첫 번째 연도)
+
+    // 현재 날짜 객체 생성
+    const currentMonth = now.getMonth() + 1; // 현재 월
 
     // 월 목록 생성 및 정렬
     const months = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -380,14 +394,60 @@ document.addEventListener("DOMContentLoaded", function() {
             .forEach((entry) => {
                 var diaryDaily = document.createElement("div");
                 diaryDaily.classList.add("diary-daily");
-                diaryDaily.innerHTML = `
-              <img src="../img/diary-background.png" alt="" class="diary-background" />
-                <div class="daily-content">
-                  <p>${entry.content}</p>
-                </div>
-                <span class="daily-date">${formatDate(entry.created_at)}</span>
-              `;
+                diaryDaily.setAttribute("key", entry.id);
+
+                if (!entry.image1) {
+                    const firstLine = entry.content.split("\n")[0];
+
+                    diaryDaily.innerHTML = `
+                    <img src="../img/diary-background.png" alt="" class="diary-background" />
+                      <div class="daily-content">
+                        <p>${firstLine}</p>
+                      </div>
+                      <span class="daily-date">${formatDate(
+                        entry.created_at
+                      )}</span>
+                    `;
+                } else if (!entry.image2) {
+                    diaryDaily.innerHTML = `
+                    <img src="../img/diary-background.png" alt="" class="diary-background" />
+                      <div class="daily-content">
+                            <img src="${
+                              entry.image1
+                            }" alt="" class="daily-img" />
+                      </div>
+                      <span class="daily-date">${formatDate(
+                        entry.created_at
+                      )}</span>
+                    `;
+                } else {
+                    diaryDaily.innerHTML = `
+                    <img src="../img/diary-background.png" alt="" class="diary-background" />
+                      <div class="daily-content">
+                            <img src="${
+                              entry.image1
+                            }" alt="" class="daily-img" />
+                            <img src="${
+                              entry.image2
+                            }" alt="" class="daily-img" />
+                      </div>
+                      <span class="daily-date">${formatDate(
+                        entry.created_at
+                      )}</span>
+                    `;
+                }
+
                 diaryDailyWrapper.appendChild(diaryDaily);
             });
     });
-});
+
+    document.querySelectorAll(".diary-daily").forEach(function(element) {
+        element.addEventListener("click", function() {
+            var key = this.getAttribute("key");
+
+            sessionStorage.setItem("diaryId", key);
+
+            window.location.href = "./diary-detail.html";
+        });
+    });
+}
