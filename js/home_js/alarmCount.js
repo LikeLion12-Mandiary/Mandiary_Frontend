@@ -57,5 +57,54 @@ for (var i = 0; i < 8; i++) {
   alarmsTotal += alarmsArr[i];
 }
 
+var badge1 = window.localStorage.getItem("badge1");
+if (badge1) {
+  alarmsTotal += 1;
+}
+
+var badge2 = window.localStorage.getItem("badge2");
+if (badge2) {
+  alarmsTotal += 1;
+}
+
+var badge3 = window.localStorage.getItem("badge3");
+if (badge3) {
+  alarmsTotal += 1;
+}
+
+var badge4 = window.localStorage.getItem("badge4");
+if (badge4) {
+  alarmsTotal += 1;
+}
+
+var badge5 = window.localStorage.getItem("badge5");
+if (badge5) {
+  alarmsTotal += 1;
+}
+
+var badge6 = window.localStorage.getItem("badge6");
+if (badge6) {
+  alarmsTotal += 1;
+}
+
+var badge7 = window.localStorage.getItem("badge7");
+if (badge7) {
+  alarmsTotal += 1;
+}
+
+var badge8 = window.localStorage.getItem("badge8");
+if (badge8) {
+  alarmsTotal += 1;
+}
+
+// 성공 개수 80 시 1 증가 (81되게)
+// 정중앙 목표 다홍색, 정중앙 목표 입력 막기
+const centerGoalDiv = document.querySelector(".centerGoalDiv");
+if (alarmsTotal == 80) {
+  alarmsTotal += 1;
+  centerGoalDiv.style.backgroundColor = "#FF452B";
+  centerGoal.readOnly = "true";
+}
+
 const successCount = document.querySelector(".success-count");
 successCount.innerText = `81 / ${alarmsTotal} 개 성공`; // 백에서 받아온걸로 넣기

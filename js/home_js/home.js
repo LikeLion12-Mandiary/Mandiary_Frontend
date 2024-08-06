@@ -78,6 +78,8 @@ center8.onkeyup = function () {
   subCenter8.innerHTML = `<span>${this.value}</span>`;
 };
 
+const centerDiv = document.querySelectorAll(".centerDiv");
+
 // 페이지 로드 시 localStorage에 저장된 값 로드
 window.onload = function () {
   var center1Text = window.localStorage.getItem("center1"); // 백에 보내기
@@ -251,6 +253,332 @@ window.onload = function () {
   }
 
   window.localStorage.setItem("badgeUnlockCount", centerSuccessCount); // 백에 보내기
+
+  // 배지
+  var badge1 = window.localStorage.getItem("badge1");
+  if (badge1) {
+    subCenter1.getElementsByTagName("span")[0].remove();
+    subCenter1.style.backgroundColor = "transparent";
+    subCenter1.style.setProperty("--after-bg-image", badge1);
+
+    // 중앙에도 배지 추가
+    centerDiv[0].style.backgroundColor = "transparent";
+    centerDiv[0].style.setProperty("--after-bg-image", badge1);
+
+    // 마우스 hover -> 배경 어둡게, 일 달성완료! 추가
+    subCenter1.addEventListener("mouseover", () => {
+      subCenter1.style.setProperty("--filter", "brightness(35%)");
+      subCenter1.innerHTML = `<span>${center1Text}</span>`;
+      const p = document.createElement("p");
+      p.innerText = "달성완료!";
+      subCenter1.appendChild(p);
+    });
+
+    subCenter1.addEventListener("mouseout", () => {
+      subCenter1.style.setProperty("--filter", "");
+      subCenter1.getElementsByTagName("span")[0].remove();
+      subCenter1.getElementsByTagName("p")[0].remove();
+    });
+
+    // 마우스 이벤트 막기
+    const subGoals = document.querySelectorAll(".sub");
+    subGoals[0].style.setProperty("--pointer", "none");
+    subCenter1.style.setProperty("--pointerSubcenter", "auto");
+
+    // 가운데 목표 입력 막기
+    center1.readOnly = "true";
+
+    // 알람 삭제하고 전제적으로 어두워지게
+    for (var i = 0; i < 8; i++) {
+      subGoals[0].querySelectorAll(".alarm")[0].remove();
+    }
+    for (var i = 0; i < 8; i++) {
+      subArr[0][i].style.backgroundColor = "#595959";
+      if (subArr[0][i].getElementsByTagName("span")[0]) {
+        subArr[0][i].getElementsByTagName("span")[0].style.color = "#FFFFFF";
+      }
+    }
+  }
+
+  var badge2 = window.localStorage.getItem("badge2");
+  if (badge2) {
+    subCenter2.getElementsByTagName("span")[0].remove();
+    subCenter2.style.backgroundColor = "transparent";
+    subCenter2.style.setProperty("--after-bg-image", badge2);
+
+    centerDiv[1].style.backgroundColor = "transparent";
+    centerDiv[1].style.setProperty("--after-bg-image", badge2);
+
+    subCenter2.addEventListener("mouseover", () => {
+      subCenter2.style.setProperty("--filter", "brightness(35%)");
+      subCenter2.innerHTML = `<span>${center2Text}</span>`;
+      const p = document.createElement("p");
+      p.innerText = "달성완료!";
+      subCenter2.appendChild(p);
+    });
+
+    subCenter2.addEventListener("mouseout", () => {
+      subCenter2.style.setProperty("--filter", "");
+      subCenter2.getElementsByTagName("span")[0].remove();
+      subCenter2.getElementsByTagName("p")[0].remove();
+    });
+
+    const subGoals = document.querySelectorAll(".sub");
+    subGoals[1].style.setProperty("--pointer", "none");
+    subCenter2.style.setProperty("--pointerSubcenter", "auto");
+
+    center2.readOnly = "true";
+
+    for (var i = 0; i < 8; i++) {
+      subGoals[1].querySelectorAll(".alarm")[0].remove();
+    }
+    for (var i = 0; i < 8; i++) {
+      subArr[1][i].style.backgroundColor = "#595959";
+      if (subArr[1][i].getElementsByTagName("span")[0]) {
+        subArr[1][i].getElementsByTagName("span")[0].style.color = "#FFFFFF";
+      }
+    }
+  }
+
+  var badge3 = window.localStorage.getItem("badge3");
+  if (badge3) {
+    subCenter3.getElementsByTagName("span")[0].remove();
+    subCenter3.style.backgroundColor = "transparent";
+    subCenter3.style.setProperty("--after-bg-image", badge3);
+
+    centerDiv[2].style.backgroundColor = "transparent";
+    centerDiv[2].style.setProperty("--after-bg-image", badge3);
+
+    subCenter3.addEventListener("mouseover", () => {
+      subCenter3.style.setProperty("--filter", "brightness(35%)");
+      subCenter3.innerHTML = `<span>${center3Text}</span>`;
+      const p = document.createElement("p");
+      p.innerText = "달성완료!";
+      subCenter3.appendChild(p);
+    });
+
+    subCenter3.addEventListener("mouseout", () => {
+      subCenter3.style.setProperty("--filter", "");
+      subCenter3.getElementsByTagName("span")[0].remove();
+      subCenter3.getElementsByTagName("p")[0].remove();
+    });
+
+    const subGoals = document.querySelectorAll(".sub");
+    subGoals[2].style.setProperty("--pointer", "none");
+    subCenter3.style.setProperty("--pointerSubcenter", "auto");
+
+    center3.readOnly = "true";
+
+    for (var i = 0; i < 8; i++) {
+      subGoals[2].querySelectorAll(".alarm")[0].remove();
+    }
+    for (var i = 0; i < 8; i++) {
+      subArr[2][i].style.backgroundColor = "#595959";
+      if (subArr[2][i].getElementsByTagName("span")[0]) {
+        subArr[2][i].getElementsByTagName("span")[0].style.color = "#FFFFFF";
+      }
+    }
+  }
+
+  var badge4 = window.localStorage.getItem("badge4");
+  if (badge4) {
+    subCenter4.getElementsByTagName("span")[0].remove();
+    subCenter4.style.backgroundColor = "transparent";
+    subCenter4.style.setProperty("--after-bg-image", badge4);
+
+    centerDiv[3].style.backgroundColor = "transparent";
+    centerDiv[3].style.setProperty("--after-bg-image", badge4);
+
+    subCenter4.addEventListener("mouseover", () => {
+      subCenter4.style.setProperty("--filter", "brightness(35%)");
+      subCenter4.innerHTML = `<span>${center4Text}</span>`;
+      const p = document.createElement("p");
+      p.innerText = "달성완료!";
+      subCenter4.appendChild(p);
+    });
+
+    subCenter4.addEventListener("mouseout", () => {
+      subCenter4.style.setProperty("--filter", "");
+      subCenter4.getElementsByTagName("span")[0].remove();
+      subCenter4.getElementsByTagName("p")[0].remove();
+    });
+
+    const subGoals = document.querySelectorAll(".sub");
+    subGoals[3].style.setProperty("--pointer", "none");
+    subCenter4.style.setProperty("--pointerSubcenter", "auto");
+
+    center4.readOnly = "true";
+
+    for (var i = 0; i < 8; i++) {
+      subGoals[3].querySelectorAll(".alarm")[0].remove();
+    }
+    for (var i = 0; i < 8; i++) {
+      subArr[3][i].style.backgroundColor = "#595959";
+      if (subArr[3][i].getElementsByTagName("span")[0]) {
+        subArr[3][i].getElementsByTagName("span")[0].style.color = "#FFFFFF";
+      }
+    }
+  }
+
+  var badge5 = window.localStorage.getItem("badge5");
+  if (badge5) {
+    subCenter5.getElementsByTagName("span")[0].remove();
+    subCenter5.style.backgroundColor = "transparent";
+    subCenter5.style.setProperty("--after-bg-image", badge5);
+
+    centerDiv[4].style.backgroundColor = "transparent";
+    centerDiv[4].style.setProperty("--after-bg-image", badge5);
+
+    subCenter5.addEventListener("mouseover", () => {
+      subCenter5.style.setProperty("--filter", "brightness(35%)");
+      subCenter5.innerHTML = `<span>${center5Text}</span>`;
+      const p = document.createElement("p");
+      p.innerText = "달성완료!";
+      subCenter5.appendChild(p);
+    });
+
+    subCenter5.addEventListener("mouseout", () => {
+      subCenter5.style.setProperty("--filter", "");
+      subCenter5.getElementsByTagName("span")[0].remove();
+      subCenter5.getElementsByTagName("p")[0].remove();
+    });
+
+    const subGoals = document.querySelectorAll(".sub");
+    subGoals[4].style.setProperty("--pointer", "none");
+    subCenter5.style.setProperty("--pointerSubcenter", "auto");
+
+    center5.readOnly = "true";
+
+    for (var i = 0; i < 8; i++) {
+      subGoals[4].querySelectorAll(".alarm")[0].remove();
+    }
+    for (var i = 0; i < 8; i++) {
+      subArr[4][i].style.backgroundColor = "#595959";
+      if (subArr[4][i].getElementsByTagName("span")[0]) {
+        subArr[4][i].getElementsByTagName("span")[0].style.color = "#FFFFFF";
+      }
+    }
+  }
+
+  var badge6 = window.localStorage.getItem("badge6");
+  if (badge6) {
+    subCenter6.getElementsByTagName("span")[0].remove();
+    subCenter6.style.backgroundColor = "transparent";
+    subCenter6.style.setProperty("--after-bg-image", badge6);
+
+    centerDiv[5].style.backgroundColor = "transparent";
+    centerDiv[5].style.setProperty("--after-bg-image", badge6);
+
+    subCenter6.addEventListener("mouseover", () => {
+      subCenter6.style.setProperty("--filter", "brightness(35%)");
+      subCenter6.innerHTML = `<span>${center6Text}</span>`;
+      const p = document.createElement("p");
+      p.innerText = "달성완료!";
+      subCenter6.appendChild(p);
+    });
+
+    subCenter6.addEventListener("mouseout", () => {
+      subCenter6.style.setProperty("--filter", "");
+      subCenter6.getElementsByTagName("span")[0].remove();
+      subCenter6.getElementsByTagName("p")[0].remove();
+    });
+
+    const subGoals = document.querySelectorAll(".sub");
+    subGoals[5].style.setProperty("--pointer", "none");
+    subCenter6.style.setProperty("--pointerSubcenter", "auto");
+
+    center6.readOnly = "true";
+
+    for (var i = 0; i < 8; i++) {
+      subGoals[5].querySelectorAll(".alarm")[0].remove();
+    }
+    for (var i = 0; i < 8; i++) {
+      subArr[5][i].style.backgroundColor = "#595959";
+      if (subArr[5][i].getElementsByTagName("span")[0]) {
+        subArr[5][i].getElementsByTagName("span")[0].style.color = "#FFFFFF";
+      }
+    }
+  }
+
+  var badge7 = window.localStorage.getItem("badge7");
+  if (badge7) {
+    subCenter7.getElementsByTagName("span")[0].remove();
+    subCenter7.style.backgroundColor = "transparent";
+    subCenter7.style.setProperty("--after-bg-image", badge7);
+
+    centerDiv[6].style.backgroundColor = "transparent";
+    centerDiv[6].style.setProperty("--after-bg-image", badge7);
+
+    subCenter7.addEventListener("mouseover", () => {
+      subCenter7.style.setProperty("--filter", "brightness(35%)");
+      subCenter7.innerHTML = `<span>${center7Text}</span>`;
+      const p = document.createElement("p");
+      p.innerText = "달성완료!";
+      subCenter7.appendChild(p);
+    });
+
+    subCenter7.addEventListener("mouseout", () => {
+      subCenter7.style.setProperty("--filter", "");
+      subCenter7.getElementsByTagName("span")[0].remove();
+      subCenter7.getElementsByTagName("p")[0].remove();
+    });
+
+    const subGoals = document.querySelectorAll(".sub");
+    subGoals[6].style.setProperty("--pointer", "none");
+    subCenter7.style.setProperty("--pointerSubcenter", "auto");
+
+    center7.readOnly = "true";
+
+    for (var i = 0; i < 8; i++) {
+      subGoals[6].querySelectorAll(".alarm")[0].remove();
+    }
+    for (var i = 0; i < 8; i++) {
+      subArr[6][i].style.backgroundColor = "#595959";
+      if (subArr[6][i].getElementsByTagName("span")[0]) {
+        subArr[6][i].getElementsByTagName("span")[0].style.color = "#FFFFFF";
+      }
+    }
+  }
+
+  var badge8 = window.localStorage.getItem("badge8");
+  if (badge8) {
+    subCenter8.getElementsByTagName("span")[0].remove();
+    subCenter8.style.backgroundColor = "transparent";
+    subCenter8.style.setProperty("--after-bg-image", badge8);
+
+    centerDiv[7].style.backgroundColor = "transparent";
+    centerDiv[7].style.setProperty("--after-bg-image", badge8);
+
+    subCenter8.addEventListener("mouseover", () => {
+      subCenter8.style.setProperty("--filter", "brightness(35%)");
+      subCenter8.innerHTML = `<span>${center8Text}</span>`;
+      const p = document.createElement("p");
+      p.innerText = "달성완료!";
+      subCenter8.appendChild(p);
+    });
+
+    subCenter8.addEventListener("mouseout", () => {
+      subCenter8.style.setProperty("--filter", "");
+      subCenter8.getElementsByTagName("span")[0].remove();
+      subCenter8.getElementsByTagName("p")[0].remove();
+    });
+
+    const subGoals = document.querySelectorAll(".sub");
+    subGoals[7].style.setProperty("--pointer", "none");
+    subCenter8.style.setProperty("--pointerSubcenter", "auto");
+
+    center8.readOnly = "true";
+
+    for (var i = 0; i < 8; i++) {
+      subGoals[7].querySelectorAll(".alarm")[0].remove();
+    }
+    for (var i = 0; i < 8; i++) {
+      subArr[7][i].style.backgroundColor = "#595959";
+      if (subArr[7][i].getElementsByTagName("span")[0]) {
+        subArr[7][i].getElementsByTagName("span")[0].style.color = "#FFFFFF";
+      }
+    }
+  }
 };
 
 // 클릭한 목표 goal-input에 띄우도록 localStorage에 저장
@@ -386,6 +714,8 @@ subGoals[0].addEventListener("click", () => {
   window.localStorage.setItem("sub6image", sub1_6_image);
   window.localStorage.setItem("sub7image", sub1_7_image);
   window.localStorage.setItem("sub8image", sub1_8_image);
+
+  window.localStorage.setItem("goalNum", 1);
 });
 
 subGoals[1].addEventListener("click", () => {
@@ -420,6 +750,8 @@ subGoals[1].addEventListener("click", () => {
   window.localStorage.setItem("sub6image", sub2_6_image);
   window.localStorage.setItem("sub7image", sub2_7_image);
   window.localStorage.setItem("sub8image", sub2_8_image);
+
+  window.localStorage.setItem("goalNum", 2);
 });
 
 subGoals[2].addEventListener("click", () => {
@@ -454,6 +786,8 @@ subGoals[2].addEventListener("click", () => {
   window.localStorage.setItem("sub6image", sub3_6_image);
   window.localStorage.setItem("sub7image", sub3_7_image);
   window.localStorage.setItem("sub8image", sub3_8_image);
+
+  window.localStorage.setItem("goalNum", 3);
 });
 
 subGoals[3].addEventListener("click", () => {
@@ -488,6 +822,8 @@ subGoals[3].addEventListener("click", () => {
   window.localStorage.setItem("sub6image", sub4_6_image);
   window.localStorage.setItem("sub7image", sub4_7_image);
   window.localStorage.setItem("sub8image", sub4_8_image);
+
+  window.localStorage.setItem("goalNum", 4);
 });
 
 subGoals[4].addEventListener("click", () => {
@@ -522,6 +858,8 @@ subGoals[4].addEventListener("click", () => {
   window.localStorage.setItem("sub6image", sub5_6_image);
   window.localStorage.setItem("sub7image", sub5_7_image);
   window.localStorage.setItem("sub8image", sub5_8_image);
+
+  window.localStorage.setItem("goalNum", 5);
 });
 
 subGoals[5].addEventListener("click", () => {
@@ -556,6 +894,8 @@ subGoals[5].addEventListener("click", () => {
   window.localStorage.setItem("sub6image", sub6_6_image);
   window.localStorage.setItem("sub7image", sub6_7_image);
   window.localStorage.setItem("sub8image", sub6_8_image);
+
+  window.localStorage.setItem("goalNum", 6);
 });
 
 subGoals[6].addEventListener("click", () => {
@@ -590,6 +930,8 @@ subGoals[6].addEventListener("click", () => {
   window.localStorage.setItem("sub6image", sub7_6_image);
   window.localStorage.setItem("sub7image", sub7_7_image);
   window.localStorage.setItem("sub8image", sub7_8_image);
+
+  window.localStorage.setItem("goalNum", 7);
 });
 
 subGoals[7].addEventListener("click", () => {
@@ -624,4 +966,6 @@ subGoals[7].addEventListener("click", () => {
   window.localStorage.setItem("sub6image", sub8_6_image);
   window.localStorage.setItem("sub7image", sub8_7_image);
   window.localStorage.setItem("sub8image", sub8_8_image);
+
+  window.localStorage.setItem("goalNum", 8);
 });
