@@ -57,7 +57,7 @@ document.getElementById("login-btn").addEventListener("click", function() {
             var accessToken = data.token;
             setCookie("accessToken", accessToken, 1);
 
-            window.location.replace("./home.html");
+            window.location.replace("/html/home.html");
         })
         .catch(() => {
             console.error("Detailed Error:", error.message);
