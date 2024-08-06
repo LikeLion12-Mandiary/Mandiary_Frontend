@@ -29,40 +29,31 @@
     <div class="diary-detail-container">
         <p>오늘 하루는 어땠나요?</p>
         <div class="diary-detail-etc">
-            <span>2024/7/20</span>
+            <span id="diary-detail-date"></span>
             <div class="detail-etc-img-wrapper">
-                <img src="../img/img-plus-active.png" alt="" />
-                <img src="../img/diary-write-active.png" alt="" />
-                <img src="../img/diary-delete-active.png" alt="" />
+                <img src="../img/diary-write-active.png" id="diary-modify-btn" alt="" />
+                <img src="../img/diary-delete-active.png" id="diary-delete-btn" alt="" />
             </div>
         </div>
         <div class="diary-detail-content-container">
-            <img src="../img/diary-detail-background.png" alt="" class="diary-detail-background" />
             <div class="diary-detail-content-wrapper">
-                <div class="diray-detail-img">
-                    <img src="../img/img1.png" alt="" />
-                    <!-- <img src="../img/img2.png" alt="" /> -->
-                </div>
-                <div class="diary-detail-content">
-                    <p>긍정적으로 살기 (*^_^*)</p>
-                    <p>긍정적으로 살기 (*^_^*)</p>
-                    <p>긍정적으로 살기 (*^_^*)</p>
-                    <p>긍정적으로 살기 (*^_^*)</p>
-                    <p>긍정적으로 살기 (*^_^*)</p>
-                    <p>긍정적으로 살기 (*^_^*)</p>
-                    <p>긍정적으로 살기 (*^_^*)</p>
-                    <p>긍정적으로 살기 (*^_^*)</p>
-                </div>
+                <div class="diray-detail-img" id="diray-detail-img"></div>
+                <div class="diary-detail-content" id="diary-detail-content"></div>
             </div>
-            <div class="diary-delete-wrapper">
-                <p>정말 삭제하시겠어요?</p>
-                <div class="diary-delete-img-wrapper">
-                    <img src="../img/diary-com.png" alt="" />
-                    <img src="../img/diary-can.png" alt="" />
+            <div class="diary-delete-modal" id="diary-delete-modal">
+                <div class="diary-delete-wrapper">
+                    <p>정말 삭제하시겠어요?</p>
+                    <div class="diary-delete-img-wrapper">
+                        <img src="../img/diary-com.png" id="diary-delete-com" alt="" />
+                        <img src="../img/diary-can.png" id="diary-delete-can" alt="" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="../js/diary-detail.js"></script>
+    <script src="../js/header.js"></script>
 </body>
 
 </html>

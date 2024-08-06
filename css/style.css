@@ -11,6 +11,7 @@
 @import "diary-detail.css";
 @import "store.css";
 @import "select-badge.css";
+@import "diary-modify.css";
 * {
     box-sizing: border-box;
     font-family: "Pretendard-Regular";

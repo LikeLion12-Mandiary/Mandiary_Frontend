@@ -1,0 +1,31 @@
+name: Deploy to S3 and Invalidate CloudFront Cache
+
+on:
+  push:
+    branches:
+      - main # 배포를 트리거할 브랜치 이름
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 # AWS 리전을 필요에 따라 변경하세요.
+
+      - name: Sync S3 bucket
+        run: |
+          aws s3 sync ./ s3://mandiary --delete
+        # `your-s3-bucket-name`을 실제 S3 버킷 이름으로 변경하세요.
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id E118A6RFUSN2U2 --paths "/*"
+        # `YOUR_DISTRIBUTION_ID`를 CloudFront 배포 ID로 변경하세요.

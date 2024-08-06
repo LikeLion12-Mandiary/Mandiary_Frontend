@@ -23,18 +23,21 @@
     color: #aeaeae;
 }
 
-.write-etc-img-wrapper {
-    position: relative;
+.modify-etc-img-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1.44rem;
 }
 
-.write-etc-img-wrapper input[type="file"] {
+.modify-etc-img-wrapper input[type="file"] {
     position: absolute;
     width: 100%;
     height: 100%;
     opacity: 0;
+    cursor: pointer;
 }
 
-.write-etc-img-wrapper input[type="file"]::-webkit-file-upload-button {
+.modify-etc-img-wrapper input[type="file"]::-webkit-file-upload-button {
     cursor: pointer;
 }
 
@@ -44,7 +47,6 @@
     margin-top: 1.31rem;
     background: url(../img/diary-write-background.png);
     padding-top: 1.44rem;
-    border-radius: 0.625rem;
 }
 
 .diary-write-content-wrapper {
